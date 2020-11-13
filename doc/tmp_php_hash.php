@@ -12,3 +12,12 @@ $array = array(
     "roberto1234",
     "ariel1234"
 );
+
+$arrayHash = array();
+for ($i = 0; $i < 10; $i++) {
+    $arrayHash[$i] = password_hash($array[$i], PASSWORD_BCRYPT);
+}
+foreach ($arrayHash as &$valor) {
+    echo "<br>";
+    echo $valor;
+    echo "<br>";}
