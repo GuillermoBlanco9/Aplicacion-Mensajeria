@@ -7,7 +7,7 @@ create table if not exists `users`
  (
   `code` int(10) NOT NULL,
   `name` varchar(20) NOT NULL,
-  `surName` varchar(30) NOT NULL,
+  `surname` varchar(30) NOT NULL,
   `email` varchar(30) NOT NULL,
   `password` varchar(60) NOT NULL,
   `address` varchar(30) NOT NULL,
@@ -72,7 +72,19 @@ ALTER TABLE `sent_to`
   ADD CONSTRAINT `dest_user_id_fk` FOREIGN KEY (`id_dest_user`) REFERENCES `users` (`code`),
   ADD CONSTRAINT `id_msg_fk` FOREIGN KEY (`id_msg`) REFERENCES `message` (`id_msg`);
   
-  
-  
+-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  INSERT INTO `users` (`code`, `name`, `surname`, `email`, `password`, `address`, `username`) VALUES
+(null, 'David', 'López', 'davidl@gmail.com', 'Calle Mayor 33 1ºC 24402 Ponferrada, León, España', '','' ),
+(null, 'Adrián', 'Rodríguez', 'adrianr@gmail.com', 'Calle Mayor 33 1ºC 24402 Ponferrada, León, España', '','' ),
+(null, 'Daniel', 'García', 'danielg@gmail.com', 'Calle Mayor 33 1ºC 24402 Ponferrada, León, España', '','' ),
+(null, 'Guillermo', 'Gil', 'guillermog@gmail.com', 'Calle Mayor 33 1ºC 24402 Ponferrada, León, España', '','' ),
+(null, 'Bernardo', 'Alcántara', 'bernardoa@gmail.com', 'Calle Mayor 33 1ºC 24402 Ponferrada, León, España', '','' ),
+(null, 'Lu', 'Romero', 'lur@gmail.com', 'Calle Mayor 33 1ºC 24402 Ponferrada, León, España', '','' ),
+(null, 'Angélica', 'Pérez', 'angelicap@gmail.com', 'Calle Mayor 33 1ºC 24402 Ponferrada, León, España', '','' ),
+(null, 'Jorge', 'Sánchez', 'jorges@gmail.com', 'Calle Mayor 33 1ºC 24402 Ponferrada, León, España', '','' ),
+(null, 'Roberto', 'Feernández', 'robertof@gmail.com', 'Calle Mayor 33 1ºC 24402 Ponferrada, León, España', '','' ),
+(null, 'Ariel', 'Martínez', 'arielm@gmail.com', 'Calle Mayor 33 1ºC 24402 Ponferrada, León, España', '','' ),;
+
   
   
