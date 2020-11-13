@@ -72,27 +72,10 @@ ALTER TABLE `sent_to`
   ADD CONSTRAINT `dest_user_id_fk` FOREIGN KEY (`id_dest_user`) REFERENCES `users` (`code`),
   ADD CONSTRAINT `id_msg_fk` FOREIGN KEY (`id_msg`) REFERENCES `message` (`id_msg`);
   
-  
--- --------------------------------------------------------------------------------------------------------------
+-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
- INSERT INTO `users` (`code`, `name`, `surname`, `email`, `password`, `address`, `username`) VALUES
-(null, 'David', 'López', 'davidl@gmail.com','', 'Calle Mayor 33 1ºC 24402 Ponferrada, León, España','' ),
-(null, 'Adrián', 'Rodríguez', 'adrianr@gmail.com', '','Calle Mayor 33 1ºC 24402 Ponferrada, León, España','' ),
-(null, 'Daniel', 'García', 'danielg@gmail.com', '','Calle Mayor 33 1ºC 24402 Ponferrada, León, España','' ),
-(null, 'Guillermo', 'Gil', 'guillermog@gmail.com', '','Calle Mayor 33 1ºC 24402 Ponferrada, León, España','' ),
-(null, 'Bernardo', 'Alcántara', 'bernardoa@gmail.com', '','Calle Mayor 33 1ºC 24402 Ponferrada, León, España','' ),
-(null, 'Lu', 'Romero', 'lur@gmail.com', '','Calle Mayor 33 1ºC 24402 Ponferrada, León, España','' ),
-(null, 'Angélica', 'Pérez', 'angelicap@gmail.com', '','Calle Mayor 33 1ºC 24402 Ponferrada, León, España','' ),
-(null, 'Jorge', 'Sánchez', 'jorges@gmail.com', '','Calle Mayor 33 1ºC 24402 Ponferrada, León, España','' ),
-(null, 'Roberto', 'Feernández', 'robertof@gmail.com','', 'Calle Mayor 33 1ºC 24402 Ponferrada, León, España','' ),
-(null, 'Ariel', 'Martínez', 'arielm@gmail.com','', 'Calle Mayor 33 1ºC 24402 Ponferrada, León, España','' );
-
-
-
-
-  
-  INSERT INTO `message` (`id_msg`,`body`,`origin_user_id`,`time`) VALUES
+INSERT INTO `message` (`id_msg`,`body`,`origin_user_id`,`time`) VALUES
   (null,'Lorem ipsum dolor sit amet','1','2020-11-12 10:10:10'),
   (null,'Lorem ipsum dolor sit amet','2','2020-11-13 10:10:30'),
   (null,'Lorem ipsum dolor sit amet','1','2020-11-13 10:11:10'),
@@ -109,8 +92,17 @@ ALTER TABLE `sent_to`
 
 
 
-
-
+  INSERT INTO `users` (`code`, `name`, `surname`, `email`, `password`, `address`, `username`) VALUES
+(null, 'David', 'López', 'davidl@gmail.com', '$2y$10$fRoHxArYEAG74of6CV/TsuR1H0.olHyRBsLcUs4Ou.qKZ.m4/vxtW','Calle Mayor 33 1ºC 24402 Ponferrada, León, España', ''),
+(null, 'Adrián', 'Rodríguez', 'adrianr@gmail.com', '$2y$10$8AkI98nhu494Ke.1M4S0Luah3vaIT0sDKCCpNLd49Kybb1TdgsFs2','Calle Mayor 33 1ºC 24402 Ponferrada, León, España', ''),
+(null, 'Daniel', 'García', 'danielg@gmail.com', '$2y$10$GU7nuhRImp/V9Yx3aPyC3e8fDIf1nPyD2cWh7AEkSfKEbdhgb4PEq','Calle Mayor 33 1ºC 24402 Ponferrada, León, España', ''),
+(null, 'Guillermo', 'Gil', 'guillermog@gmail.com', '$2y$10$yCl.AV8C/gWP1CxAHXEBZeCaIlgrcr2.mpWI2vhAyb/mXnJFSi5jS','Calle Mayor 33 1ºC 24402 Ponferrada, León, España', ''),
+(null, 'Bernardo', 'Alcántara', 'bernardoa@gmail.com', '$2y$10$4LIdhSZd2diKQbCWnKk6GOq0l6oDsERL1zK6tjzhKUsyJwnNVC.U','Calle Mayor 33 1ºC 24402 Ponferrada, León, España', ''),
+(null, 'Lu', 'Romero', 'lur@gmail.com', '$2y$10$8fknlPWHtuVOuCNJQ4XOpO/FGLB0zCVEx7KrFuhsHgbHkWv1mGXSu','Calle Mayor 33 1ºC 24402 Ponferrada, León, España', ''),
+(null, 'Angélica', 'Pérez', 'angelicap@gmail.com', '$2y$10$.5E2mH7E3ug0SGmKhbKiKeXBcjfF3BYrRikrJ.RP0z5ItMI8CuuuC','Calle Mayor 33 1ºC 24402 Ponferrada, León, España', ''),
+(null, 'Jorge', 'Sánchez', 'jorges@gmail.com', '$2y$10$5IswkizKeS2JnMoma7MvMeCFR.dnCH2XEA0OsjDFFxH1piIjDjRye','Calle Mayor 33 1ºC 24402 Ponferrada, León, España', ''),
+(null, 'Roberto', 'Fernández', 'robertof@gmail.com', '$2y$10$3UD0KOOHMVemftHVBSiXJejAo18XBHDAuryW85j3oRQcKdiZk/fCi','Calle Mayor 33 1ºC 24402 Ponferrada, León, España', ''),
+(null, 'Ariel', 'Martínez', 'arielm@gmail.com', '$2y$10$ken3dj3KmyhNcYsKTTrP4.LL2abqL34IDQBB5KFThOTcgKZfByTmy','Calle Mayor 33 1ºC 24402 Ponferrada, León, España', ''),;
 
   
   
