@@ -10,7 +10,7 @@ create table if not exists `users`
   `surname` varchar(30) NOT NULL,
   `email` varchar(30) NOT NULL,
   `password` varchar(60) NOT NULL,
-  `address` varchar(30) NOT NULL,
+  `address` varchar(80) NOT NULL,
   `username` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
