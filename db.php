@@ -25,11 +25,10 @@ function check_user($name, $password){
 	$db = new PDO($res[0], $res[1], $res[2]);
 	$ins = "SELECT username, password FROM users WHERE username = '$name'";
 	$resul = $db->query($ins);	
-	if($resul->rowCount() === 1){		
-		foreach($resul as $row){
-			if(password_verify($password,$row['password']))
-				return $resul->fetch();
-		}		
+	if($resul->rowCount() === 1){	
+		$resul2 = $resul->fetch();	
+			if(password_verify($password,$resul2['password']))
+				return $resul2;
 	}else{
 		return FALSE;
 	}
