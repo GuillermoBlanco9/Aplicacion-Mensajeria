@@ -23,15 +23,15 @@ function load_config($name, $schema){
 function check_user($name, $password){
 	$res = load_config(dirname(__FILE__)."/configuration.xml", dirname(__FILE__)."/configuration.xsd");
 	$db = new PDO($res[0], $res[1], $res[2]);
-	$ins = "select username from users where username = '$name'";
+	$ins = "SELECT username FROM users WHERE username = '$name'";
 	$resul = $db->query($ins);	
-	echo $resul;
-	/*if($resul->rowCount() === 1){		
+	if($resul->rowCount() === 1){		
 		return $resul->fetch();		
 	}else{
 		return FALSE;
-	}*/
+	}
 }
+/*
 function load_categories(){
 	$res = load_config(dirname(__FILE__)."/configuration.xml", dirname(__FILE__)."/configuration.xsd");
 	$db = new PDO($res[0], $res[1], $res[2]);
@@ -123,7 +123,7 @@ function insert_order($cart, $codRes){
 	}
 	$db->commit();
 	return $order;
-}
+}*/
 
 
 
