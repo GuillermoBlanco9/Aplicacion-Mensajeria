@@ -23,10 +23,13 @@ function load_config($name, $schema){
 function check_user($name, $password){
 	$res = load_config(dirname(__FILE__)."/configuration.xml", dirname(__FILE__)."/configuration.xsd");
 	$db = new PDO($res[0], $res[1], $res[2]);
-	$ins = "SELECT username FROM users WHERE username = '$name'";
+	$ins = "SELECT username, password FROM users WHERE username = '$name'";
 	$resul = $db->query($ins);	
 	if($resul->rowCount() === 1){		
-		return $resul->fetch();		
+		foreach($resul as $row){
+			if(password_verify($password,$row['password']))
+				return $resul->fetch();
+		}		
 	}else{
 		return FALSE;
 	}
