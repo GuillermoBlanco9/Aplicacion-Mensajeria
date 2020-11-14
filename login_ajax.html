@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Login</title>		
+		<meta charset = "UTF-8">
+		<script>
+		function login(){       
+			var xhttp = new XMLHttpRequest();                
+			xhttp.onreadystatechange = function() { 
+				if (this.readyState == 4 && this.status == 200) { 
+					if(this.responseText==="FALSE"){ 
+						alert("Check user and password"); 
+					}else{ 
+						alert("Login correct");
+					}
+
+				} 
+			} 		 
+			var user = document.getElementById("user").value; 
+			var password = document.getElementById("password").value;  
+			var params = "user=" + user + "&password=" + password; 
+			xhttp.open("POST", "login_json.php", true);      
+			xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded"); 
+			xhttp.send(params);              
+			return false;
+		} 
+			
+		</script>
+		<form onsubmit = "return login();">
+			<input id = "user">
+			<input id = "password">
+			<input type = "submit">
+		</form>
+	</head>
+ 

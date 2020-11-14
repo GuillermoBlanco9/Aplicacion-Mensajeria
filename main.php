@@ -1,3 +1,10 @@
+<?php 
+
+require_once 'sessions.php';
+require_once 'db.php';
+check_session();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
