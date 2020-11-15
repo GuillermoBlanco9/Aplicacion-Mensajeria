@@ -12,9 +12,10 @@
 						alert("Check user and password"); 
 					}else{ 
 						alert("Login correct");
-						var rows = JSON.parse(this.responseXML);
+						console.log(this.responseText);
+						var rows = JSON.parse(this.responseText);
 						console.log(rows);
-						//cargarPaginaPrincipal(this.responseText);
+						cargarPaginaPrincipal(user);
 					}
 
 				} 
@@ -28,18 +29,54 @@
 			return false;
 		} 
 
-		function cargarPaginaPrincipal(data)
+		function cargarPaginaPrincipal(user)
 		{
-			//voy a ver si puedo sacar la info de la respuesta http
-			var rows = JSON.parse(data);
-			console.log(rows);
+			//Estructura de la página 
+			document.body.removeChild(document.getElementById("form"));
+			var principal = document.createElement('div');
+			principal.id = "contenedor-principal";
+			var chat = document.createElement('div');
+			chat.id = "chat";
+			var h2 = document.createElement('h2');
+			h2.innerHTML = 'CHATS';
+			chat.appendChild(h2);
+			var conver = document.createElement('div');
+			conver.id = "conver";
+			principal.appendChild(chat);
+			principal.appendChild(conver);
+			document.body.appendChild(principal);
+			//Peticion para los chats
+			var xhttp = new XMLHttpRequest();                
+			xhttp.onreadystatechange = function() { 
+				if (this.readyState == 4 && this.status == 200) { 
+					if(this.responseText==="FALSE"){ 
+						alert("Check user and password"); 
+					}else{ 
+						alert("Login correct");
+						console.log(this.responseText);
+						var rows = JSON.parse(this.responseText);
+						console.log(rows);
+						cargarPaginaPrincipal(user);
+					}
+
+				} 
+			} 		 
+			var params = "user=" + user; 
+			xhttp.open("POST", "get_chats.php", true);      
+			xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded"); 
+			xhttp.send(params); 
 		}
 			
 		</script>
-		<form onsubmit = "return login();">
+		
+	</head>
+
+	<body>
+		<form id = "form"onsubmit = "return login();">
 			<input id = "user">
 			<input id = "password">
 			<input type = "submit">
 		</form>
-	</head>
+
+	</body>
  
