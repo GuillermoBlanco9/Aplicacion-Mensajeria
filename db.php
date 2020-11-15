@@ -28,7 +28,10 @@ function check_user($name, $password){
 	if($resul->rowCount() === 1){	
 		$resul2 = $resul->fetch();	
 			if(password_verify($password,$resul2['password']))
-				return $resul2;
+				{
+					$json = json_encode($resul);   
+					echo $json;
+				}
 	}else{
 		return FALSE;
 	}

@@ -12,7 +12,9 @@
 						alert("Check user and password"); 
 					}else{ 
 						alert("Login correct");
-						
+						var rows = JSON.parse(this.responseXML);
+						console.log(rows);
+						//cargarPaginaPrincipal(this.responseText);
 					}
 
 				} 
@@ -25,6 +27,13 @@
 			xhttp.send(params);              
 			return false;
 		} 
+
+		function cargarPaginaPrincipal(data)
+		{
+			//voy a ver si puedo sacar la info de la respuesta http
+			var rows = JSON.parse(data);
+			console.log(rows);
+		}
 			
 		</script>
 		<form onsubmit = "return login();">
