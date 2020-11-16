@@ -28,10 +28,16 @@ function check_user($name, $password){
 	if($resul->rowCount() === 1){	
 		$resul2 = $resul->fetch();	
 			if(password_verify($password,$resul2['password']))
-				return $resul;
+				return $resul2['username'];
 	}else{
 		return FALSE;
 	}
+}
+
+function get_chats($username){
+	$res = load_config(dirname(__FILE__)."/configuration.xml", dirname(__FILE__)."/configuration.xsd");
+	$db = new PDO($res[0], $res[1], $res[2]);
+	$ins = "SELECT";
 }
 /*
 function load_categories(){

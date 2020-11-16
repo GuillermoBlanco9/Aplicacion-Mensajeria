@@ -37,16 +37,19 @@
 			principal.id = "contenedor-principal";
 			var chat = document.createElement('div');
 			chat.id = "chat";
-			var h2 = document.createElement('h2');
-			h2.innerHTML = 'CHATS';
+			var h3 = document.createElement('h3');
+			h3.innerHTML = 'CHATS';
 			chat.appendChild(h2);
 			var conver = document.createElement('div');
 			conver.id = "conver";
+			var h2 = document.createElement('h2');
+			h2.innerHTML = 'WELCOME ' + user;
 			principal.appendChild(chat);
 			principal.appendChild(conver);
 			document.body.appendChild(principal);
+
 			//Peticion para los chats
-			var xhttp = new XMLHttpRequest();                
+			/*var xhttp = new XMLHttpRequest();                
 			xhttp.onreadystatechange = function() { 
 				if (this.readyState == 4 && this.status == 200) { 
 					if(this.responseText==="FALSE"){ 
@@ -61,10 +64,10 @@
 
 				} 
 			} 		 
-			var params = "user=" + user; 
-			xhttp.open("POST", "get_chats.php", true);      
-			xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded"); 
-			xhttp.send(params); 
+			var params = "user=" + user; */
+			//xhttp.open("POST", "get_chats.php", true);      
+			//xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded"); 
+			//xhttp.send(params); 
 		}
 			
 		</script>
