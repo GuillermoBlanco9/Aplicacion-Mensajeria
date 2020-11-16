@@ -29,6 +29,8 @@ function check_user($name, $password){
 		$resul2 = $resul->fetch();	
 			if(password_verify($password,$resul2['password']))
 				return $resul2['username'];
+			else
+				return FALSE;
 	}else{
 		return FALSE;
 	}

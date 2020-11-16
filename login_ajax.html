@@ -12,9 +12,9 @@
 						alert("Check user and password"); 
 					}else{ 
 						alert("Login correct");
-						console.log(this.responseText);
-						var rows = JSON.parse(this.responseText);
-						console.log(rows);
+						//console.log(this.responseText);
+						//var rows = JSON.parse(this.responseText);
+						//console.log(rows);
 						cargarPaginaPrincipal(user);
 					}
 
@@ -39,7 +39,7 @@
 			chat.id = "chat";
 			var h3 = document.createElement('h3');
 			h3.innerHTML = 'CHATS';
-			chat.appendChild(h2);
+			chat.appendChild(h3);
 			var conver = document.createElement('div');
 			conver.id = "conver";
 			var h2 = document.createElement('h2');
