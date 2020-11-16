@@ -105,23 +105,47 @@ INSERT INTO `message` (`id_msg`,`body`,`origin_user_id`,`time`) VALUES
    (null,'Lorem ipsum dolor sit amet','1','2020-11-16 10:10:10'),
   (null,'Lorem ipsum dolor sit amet','2','2020-11-17 10:10:30'),
   (null,'Lorem ipsum dolor sit amet','1','2020-11-17 10:11:10'),
-  (null,'Lorem ipsum dolor sit amet','1','2020-11-17 10:10:20');
+  (null,'Lorem ipsum dolor sit amet','1','2020-11-17 10:10:20'),
+  (null,'Lorem ipsum dolor sit amet','3','2020-11-12 10:10:10'),
+  (null,'Lorem ipsum dolor sit amet','2','2020-11-13 10:10:30'),
+  (null,'Lorem ipsum dolor sit amet','3','2020-11-13 10:11:10'),
+  (null,'Lorem ipsum dolor sit amet','2','2020-11-13 10:10:20'),
+   (null,'Lorem ipsum dolor sit amet','3','2020-11-14 10:10:10'),
+  (null,'Lorem ipsum dolor sit amet','2','2020-11-15 10:10:30'),
+  (null,'Lorem ipsum dolor sit amet','3','2020-11-15 10:11:10'),
+  (null,'Lorem ipsum dolor sit amet','2','2020-11-15 10:10:20'),
+   (null,'Lorem ipsum dolor sit amet','3','2020-11-16 10:10:10'),
+  (null,'Lorem ipsum dolor sit amet','2','2020-11-17 10:10:30'),
+  (null,'Lorem ipsum dolor sit amet','3','2020-11-17 10:11:10'),
+  (null,'Lorem ipsum dolor sit amet','3','2020-11-17 10:10:20');
 
 
   -- -------------------------------------------------------------------------------------------------
   
 
   INSERT INTO `sent_to` (`code_sent`,`id_msg`,`id_dest_user`,`read`) VALUES
-  ('1','1','2','1'),
-  ('2','2','1','1'),
-  ('3','3','2','1'),
-  ('4','4','1','1'),
-   ('5','5','2','1'),
-  ('6','6','1','1'),
-  ('7','7','2','1'),
-  ('8','8','1','1'),
-   ('9','9','2','1'),
-  ('10','10','1','1'),
-  ('11','11','2','1'),
- ('12','12','2','1');
+  (null,'1','2','1'),
+  (null,'2','1','1'),
+  (null,'3','2','1'),
+  (null,'4','1','1'),
+   (null,'5','2','1'),
+  (null,'6','1','1'),
+  (null,'7','2','1'),
+  (null,'8','1','1'),
+   (null,'9','2','1'),
+  (null,'10','1','1'),
+  (null,'11','2','1'),
+ (null,'12','2','1'),
+  (null,'13','2','1'),
+  (null,'14','3','1'),
+  (null,'15','2','1'),
+  (null,'16','3','1'),
+   (null,'17','2','1'),
+  (null,'18','3','1'),
+  (null,'19','2','1'),
+  (null,'20','3','1'),
+   (null,'21','2','1'),
+  (null,'22','3','1'),
+  (null,'23','2','1'),
+ (null,'24','2','1');
  

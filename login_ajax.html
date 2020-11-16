@@ -1,60 +1,63 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Login</title>		
-		<meta charset = "UTF-8">
-		<script>
-		function login(){       
-			var xhttp = new XMLHttpRequest();                
-			xhttp.onreadystatechange = function() { 
-				if (this.readyState == 4 && this.status == 200) { 
-					if(this.responseText==="FALSE"){ 
-						alert("Check user and password"); 
-					}else{ 
+
+<head>
+	<title>Login</title>
+	<meta charset="UTF-8">
+	<script>
+		function login() {
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function () {
+				if (this.readyState == 4 && this.status == 200) {
+					if (this.responseText === "FALSE") {
+						alert("Check user and password");
+					} else {
 						alert("Login correct");
-						//console.log(this.responseText);
-						//var rows = JSON.parse(this.responseText);
-						//console.log(rows);
 						cargarPaginaPrincipal(user);
 					}
-
-				} 
-			} 		 
-			var user = document.getElementById("user").value; 
-			var password = document.getElementById("password").value;  
-			var params = "user=" + user + "&password=" + password; 
-			xhttp.open("POST", "login_json.php", true);      
-			xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded"); 
-			xhttp.send(params);              
+				}
+			}
+			var user = document.getElementById("user").value;
+			var password = document.getElementById("password").value;
+			var params = "user=" + user + "&password=" + password;
+			xhttp.open("POST", "login_json.php", true);
+			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhttp.send(params);
 			return false;
-		} 
+		}
 
-		function cargarPaginaPrincipal(user)
-		{
+		function cargarPaginaPrincipal(user) {
 			//Estructura de la página 
 			document.body.removeChild(document.getElementById("form"));
 			var principal = document.createElement('div');
 			principal.id = "contenedor-principal";
 			var chat = document.createElement('div');
 			chat.id = "chat";
+			chat.style.border = '1px solid #000000';
+			chat.style.float = 'left';
 			var h3 = document.createElement('h3');
-			h3.innerHTML = 'CHATS';
+			h3.innerHTML = 'CHATS OF ' + user;
 			chat.appendChild(h3);
 			var conver = document.createElement('div');
 			conver.id = "conver";
-			var h2 = document.createElement('h2');
-			h2.innerHTML = 'WELCOME ' + user;
+			conver.style.border = '1px solid #000000';
+			chat.style.float = 'left';
 			principal.appendChild(chat);
 			principal.appendChild(conver);
 			document.body.appendChild(principal);
 
+			cargarChats(user);
 			//Peticion para los chats
-			/*var xhttp = new XMLHttpRequest();                
-			xhttp.onreadystatechange = function() { 
-				if (this.readyState == 4 && this.status == 200) { 
-					if(this.responseText==="FALSE"){ 
-						alert("Check user and password"); 
-					}else{ 
+
+		}
+
+		function cargarChats(user) {
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function () {
+				if (this.readyState == 4 && this.status == 200) {
+					if (this.responseText === "FALSE") {
+						alert("Check user and password");
+					} else {
 						alert("Login correct");
 						console.log(this.responseText);
 						var rows = JSON.parse(this.responseText);
@@ -62,24 +65,22 @@
 						cargarPaginaPrincipal(user);
 					}
 
-				} 
-			} 		 
-			var params = "user=" + user; */
-			//xhttp.open("POST", "get_chats.php", true);      
-			//xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded"); 
-			//xhttp.send(params); 
+				}
+			}
+			var params = "user=" + user;
+			xhttp.open("POST", "get_chats.php", true);
+			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhttp.send(params);
 		}
-			
-		</script>
-		
-	</head>
+	</script>
 
-	<body>
-		<form id = "form"onsubmit = "return login();">
-			<input id = "user">
-			<input id = "password">
-			<input type = "submit">
-		</form>
+</head>
 
-	</body>
- 
+<body>
+	<form id="form" onsubmit="return login();">
+		<input id="user">
+		<input id="password">
+		<input type="submit">
+	</form>
+
+</body>
