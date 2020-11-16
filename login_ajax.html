@@ -56,15 +56,10 @@
 			xhttp.onreadystatechange = function () {
 				if (this.readyState == 4 && this.status == 200) {
 					if (this.responseText === "FALSE") {
-						alert("Check user and password");
+						alert("no va ni pa dios");
 					} else {
-						alert("Login correct");
-						console.log(this.responseText);
-						var rows = JSON.parse(this.responseText);
-						console.log(rows);
-						cargarPaginaPrincipal(user);
+						alert("va bien");
 					}
-
 				}
 			}
 			var params = "user=" + user;

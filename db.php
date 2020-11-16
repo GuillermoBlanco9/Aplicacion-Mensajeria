@@ -39,7 +39,23 @@ function check_user($name, $password){
 function get_chats($username){
 	$res = load_config(dirname(__FILE__)."/configuration.xml", dirname(__FILE__)."/configuration.xsd");
 	$db = new PDO($res[0], $res[1], $res[2]);
-	$ins = "SELECT";
+	$ins = "SELECT `users`.`username`, `sent_to`.`id_dest_user` from `users` 
+				INNER JOIN `message` on `users`.`code` = `message`.`origin_user_id`
+    			INNER JOIN `sent_to` on `sent_to`.`id_msg` = `message`.`id_msg`
+    			where `username` like '$username'
+				group by `sent_to`.`id_dest_user`";
+	$resul = $db->query($ins);
+	$arrayCode = array();
+	if($resul->rowCount() > 0){
+		while($row = $resul->fetch()){
+			array_push($arrayCode, $row['id_dest_user']);
+		} //HAY QUE PONER EL ELSE
+		print_r($arrayCode);
+	}
+ /*$stmt = $pdo->query("SELECT * FROM users");
+while ($row = $stmt->fetch()) {
+    echo $row['name']."<br />\n";
+}*/
 }
 
 //Select para sacar elos usuarios destino de cada usuario
