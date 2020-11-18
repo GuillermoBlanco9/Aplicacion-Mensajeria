@@ -72,14 +72,16 @@
 
 		function createChats(chats){
 			console.log(chats);
-			for(var i = 0; i < chats.lenth; i++){
-				var ele = document.createElement('div');
+			var ele = document.createElement('div');
+			for(var i = 0; i < chats.length; i++){
 				ele.id = 'chat_' + chats[i];
+				ele.style.textAlign='center';
 				var p = document.createElement('p');
 				p.innerHTML = chats[i];
 				ele.appendChild(p);
-				chat.appendChild(ele);
+				document.getElementById('chat').appendChild(ele);
 			}
+			
 		}
 	</script>
 
