@@ -72,8 +72,8 @@
 
 		function createChats(chats){
 			console.log(chats);
-			var ele = document.createElement('div');
 			for(var i = 0; i < chats.length; i++){
+				var ele = document.createElement('div');
 				ele.id = 'chat_' + chats[i];
 				ele.style.textAlign='center';
 				var p = document.createElement('p');
