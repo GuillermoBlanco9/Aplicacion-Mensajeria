@@ -5,6 +5,7 @@
 	<title>Login</title>
 	<meta charset="UTF-8">
 	<script>
+		var chat;
 		function login() {
 			var xhttp = new XMLHttpRequest();
 			xhttp.onreadystatechange = function () {
@@ -56,9 +57,10 @@
 			xhttp.onreadystatechange = function () {
 				if (this.readyState == 4 && this.status == 200) {
 					if (this.responseText === "FALSE") {
-						alert("no va ni pa dios");
+						alert("Something went wrong");
 					} else {
-						alert("va bien");
+						//alert('va bien');
+						createChats(JSON.parse(this.responseText));
 					}
 				}
 			}
@@ -66,6 +68,18 @@
 			xhttp.open("POST", "get_chats.php", true);
 			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 			xhttp.send(params);
+		}
+
+		function createChats(chats){
+			console.log(chats);
+			for(var i = 0; i < chats.lenth; i++){
+				var ele = document.createElement('div');
+				ele.id = 'chat_' + chats[i];
+				var p = document.createElement('p');
+				p.innerHTML = chats[i];
+				ele.appendChild(p);
+				chat.appendChild(ele);
+			}
 		}
 	</script>
 
