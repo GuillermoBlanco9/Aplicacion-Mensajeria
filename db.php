@@ -75,6 +75,35 @@ function get_username($code){
 }
 
 
+function get_conversation($user,$currentUser){
+	$code_user=get_code($user);
+	$code_current_user=get_code($currentUser);
+	$res = load_config(dirname(__FILE__)."/configuration.xml", dirname(__FILE__)."/configuration.xsd");
+	$db = new PDO($res[0], $res[1], $res[2]);
+	$ins = "SELECT `message`.`body`,`users`.`username` from message join users 
+			on `users`.`code` = `message`.`origin_user_id` 
+			where `message`.`origin_user_id`='$code_user'";
+	$ins2 = "SELECT `message`.`body`,`users`.`username` from message join users 
+			on `users`.`code` = `message`.`origin_user_id` 
+			where `message`.`origin_user_id`='$code_current_user'";
+	$resul = $db->query($ins);
+	$resul2 = $db->query($ins2);
+	$arrayMsg = array();
+	
+	if($resul->rowCount() > 0 || $resul2->rowCount() > 0){
+		
+		while($row = $resul->fetch())
+			array_push($arrayMsg, $row);
+		while($row = $resul2->fetch())
+			array_push($arrayMsg, $row);
+
+
+			print_r($arrayMsg);
+		
+	}
+	return $arrayMsg;
+}
+
 function get_code($username){
 	$res = load_config(dirname(__FILE__)."/configuration.xml", dirname(__FILE__)."/configuration.xsd");
 	$db = new PDO($res[0], $res[1], $res[2]);
@@ -83,11 +112,13 @@ function get_code($username){
 	$resul = $db->query($ins);
 	if($resul->rowCount() === 1){
 		$resul2 = $resul->fetch();
-		return $resul2['username'];
+		return $resul2['code'];
 	}
 	else
 		return FALSE;
 }
+
+
 
 
 

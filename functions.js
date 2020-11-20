@@ -32,7 +32,7 @@ function cargarPaginaPrincipal(user) {
     chat.className = 'chat';
     //Titulo para los chats con el nombre de usuario
     var h3 = document.createElement('h3');
-    h3.id = 'titulo_' + user;
+    h3.id = 'titulo_';
     h3.innerHTML = 'CHATS OF ' + user;
     chat.appendChild(h3);
     //contenedor de la conversacion y la barra para escribir
@@ -102,7 +102,8 @@ function onClick()
 {   
     var user=this.id;
     user.substring(5,user.length);
-
+    var currentUser = document.getElementById("titulo_").innerHTML.substring(9);
+    
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -115,9 +116,9 @@ function onClick()
         }
     }
     
-    var currentUsu = document.getElementById("password").value;
-    var params = "currentUser=" + currentUsu + "&user=" + user;
-    xhttp.open("POST", "login_json.php", true);
+    
+    var params = "currentUser=" + currentUser + "&user=" + user;
+    xhttp.open("POST", "load_chats_json.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(params);
     return false;
