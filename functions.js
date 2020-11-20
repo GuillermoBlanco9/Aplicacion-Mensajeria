@@ -20,28 +20,47 @@ function login() {
 }
 
 function cargarPaginaPrincipal(user) {
-    //Estructura de la página 
+    //Borrado de el form
     document.body.removeChild(document.getElementById("form"));
+    //contenedor principal
     var principal = document.createElement('div');
-    principal.id = "contenedor-principal";
+    principal.id = "contenedor-principal_id";
+    principal.className = 'contenedor-principal';
+    //Contenedor de los chats
     var chat = document.createElement('div');
-    chat.id = "chat";
-    chat.style.border = '1px solid #000000';
-    chat.style.float = 'left';
+    chat.id = "chat_id";
+    chat.className = 'chat';
+    //Titulo para los chats con el nombre de usuario
     var h3 = document.createElement('h3');
     h3.innerHTML = 'CHATS OF ' + user;
     chat.appendChild(h3);
+    //contenedor de la conversacion y la barra para escribir
+    var contenedor_conver = document.createElement('div');
+    contenedor_conver.id = "contenedor_conver_id";
+    contenedor_conver.className = 'contenedor_conver';
+    //contenedor para la conversacion
     var conver = document.createElement('div');
-    conver.id = "conver";
-    conver.style.border = '1px solid #000000';
-    chat.style.float = 'left';
+    conver.id = 'conver_id'
+    conver.className = 'conver';
+    //Form para enviar mensajes
+    var form = document.createElement('form');
+    form.id = 'form_message';
+    var input = document.createElement('input');
+    var button = document.createElement('button');
+    button.setAttribute('type','submit');
+    //AÑADIR FUNCION DESPUES DE EL RETURN
+    //button.setAttribute('onsubmit', 'return nombreFuncion()');
+    button.innerHTML = 'send';
+    //colgar en el dom
+    form.appendChild(input);
+    form.appendChild(button);
+    contenedor_conver.appendChild(conver);
+    contenedor_conver.appendChild(form);
     principal.appendChild(chat);
-    principal.appendChild(conver);
+    principal.appendChild(contenedor_conver);
     document.body.appendChild(principal);
-
     cargarChats(user);
     //Peticion para los chats
-
 }
 
 function cargarChats(user) {
@@ -71,7 +90,6 @@ function createChats(chats){
         var p = document.createElement('p');
         p.innerHTML = chats[i];
         ele.appendChild(p);
-        document.getElementById('chat').appendChild(ele);
+        document.getElementById('chat_id').appendChild(ele);
     }
-    
 }
