@@ -68,6 +68,7 @@ function createChats(chats){
         var ele = document.createElement('div');
         ele.id = 'chat_' + chats[i];
         ele.style.textAlign='center';
+        ele.addEventListener("click",onClick)
         var p = document.createElement('p');
         p.innerHTML = chats[i];
         ele.appendChild(p);
@@ -75,3 +76,33 @@ function createChats(chats){
     }
     
 }
+
+
+function onClick()    
+{   
+    var user=this.id;
+    user.substring(5,user.length);
+    
+    
+
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            if (this.responseText === "FALSE") {
+                alert("No funciona");
+            } else {
+                alert("Mostrar Chat");
+                //metodo para sacar el div con los chats
+            }
+        }
+    }
+    
+    var currentUsu = document.getElementById("password").value;
+    var params = "user=" + currentUsu + "&password=" + password;
+    xhttp.open("POST", "login_json.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send(params);
+    return false;
+
+}   

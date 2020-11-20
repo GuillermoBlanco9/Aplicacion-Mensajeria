@@ -74,6 +74,14 @@ function get_username($code){
 		return FALSE;
 }
 
+
+
+/*necesito body, origin user, users code y id destUser
+SELECT body,username from users JOIN message on users.code = message.origin_user_id
+ JOIN sent_to on sent_to.id_msg = message.id_msg WHERE message.origin_user_id='1';
+*/
+
+
  /*$stmt = $pdo->query("SELECT * FROM users");
 while ($row = $stmt->fetch()) {
     echo $row['name']."<br />\n";
