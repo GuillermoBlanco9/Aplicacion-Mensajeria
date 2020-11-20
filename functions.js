@@ -32,6 +32,7 @@ function cargarPaginaPrincipal(user) {
     chat.className = 'chat';
     //Titulo para los chats con el nombre de usuario
     var h3 = document.createElement('h3');
+    h3.id = 'titulo_' + user;
     h3.innerHTML = 'CHATS OF ' + user;
     chat.appendChild(h3);
     //contenedor de la conversacion y la barra para escribir
