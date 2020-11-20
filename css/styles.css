@@ -43,7 +43,7 @@ div.conver #form_message{
 
 #form_message input{
     
-    flex-basis: 90%;
+    width: 90%;
     flex-grow: 2;
 }
 
