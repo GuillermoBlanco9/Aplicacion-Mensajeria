@@ -101,9 +101,6 @@ function onClick()
 {   
     var user=this.id;
     user.substring(5,user.length);
-    
-    
-
 
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -118,7 +115,7 @@ function onClick()
     }
     
     var currentUsu = document.getElementById("password").value;
-    var params = "user=" + currentUsu + "&password=" + password;
+    var params = "currentUser=" + currentUsu + "&user=" + user;
     xhttp.open("POST", "login_json.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(params);

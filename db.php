@@ -75,6 +75,21 @@ function get_username($code){
 }
 
 
+function get_code($username){
+	$res = load_config(dirname(__FILE__)."/configuration.xml", dirname(__FILE__)."/configuration.xsd");
+	$db = new PDO($res[0], $res[1], $res[2]);
+	$ins = "SELECT `users`.`code` from `users` 
+				where `users`.`username` like '$username' limit 1";
+	$resul = $db->query($ins);
+	if($resul->rowCount() === 1){
+		$resul2 = $resul->fetch();
+		return $resul2['username'];
+	}
+	else
+		return FALSE;
+}
+
+
 
 /*necesito body, origin user, users code y id destUser
 SELECT body,username from users JOIN message on users.code = message.origin_user_id
