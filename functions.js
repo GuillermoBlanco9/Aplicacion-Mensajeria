@@ -161,6 +161,8 @@ function sendMessage() {
     var currentUser = tituloInnerHTML.substring(9, tituloInnerHTML.length);
     var date=new Date().toISOString().slice(0, 19).replace('T', ' ');
     console.log(date);
+
+    
     /*console.log(time);
     console.log(msg);
     console.log(currentUser);*/
