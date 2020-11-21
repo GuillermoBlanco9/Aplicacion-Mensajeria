@@ -50,7 +50,7 @@ function cargarPaginaPrincipal(user) {
     form.id='form_message';
    
     var input = document.createElement('input');
-    input.id = 'imput_msg';
+    input.id = 'input_msg';
     var button = document.createElement('button');
     button.addEventListener('click',sendMessage);
     //colgar en el dom
@@ -162,6 +162,7 @@ function sendMessage() {
 
 
     var  time = new Date().toUTCString().slice(0,-4);
+    time=time.substring()
 
     console.log(time);
     console.log(msg);
