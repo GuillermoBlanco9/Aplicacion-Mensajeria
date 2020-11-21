@@ -162,7 +162,7 @@ function sendMessage() {
 
 
     var  time = new Date().toUTCString().slice(0,-4);
-    time=time.substring()
+    time=time.substring(5,time.length);
 
     console.log(time);
     console.log(msg);
