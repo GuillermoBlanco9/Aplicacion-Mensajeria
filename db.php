@@ -131,8 +131,23 @@ function get_code($username){
 }
 
 
-function send_message()
-{}
+function send_message($current_user, $user,$body, $time){
+	$code_user=get_code($user);
+	$code_current_user=get_code($current_user);
+	$res = load_config(dirname(__FILE__)."/configuration.xml", dirname(__FILE__)."/configuration.xsd");
+	$db = new PDO($res[0], $res[1], $res[2]);
+	$ins = "INSERT INTO `message`(`id_msg`, `body`, `origin_user_id`, `time`) VALUES
+			(null,'$body', '$code_current_user', '$time')";
+	$resul = $db->query($ins);
+	if(!$resul){
+		print_r($db->errorInfo());
+		$db->rollBack();
+		return FALSE;
+	}
+	$ins = 
+	//$ins2 = "INSERT INTO `sent_to`(`code_sent`, `body`, `id_dest_user`, `ream`) VALUES
+	//		(null,'$body', '$code_current_user', '$time')";
+}
 
 
 

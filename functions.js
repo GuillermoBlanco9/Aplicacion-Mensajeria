@@ -159,8 +159,6 @@ function sendMessage() {
     var msg = document.getElementById('input_msg').value;
     var tituloInnerHTML = document.getElementById('titulo_').innerHTML;
     var currentUser = tituloInnerHTML.substring(9, tituloInnerHTML.length);
-    var  time = new Date().toUTCString().slice(0,-4);
-    time=time.substring(5,time.length);
     var date=new Date().toISOString().slice(0, 19).replace('T', ' ');
     console.log(date);
     /*console.log(time);
@@ -171,15 +169,14 @@ function sendMessage() {
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 if (this.responseText === "FALSE") {
-                    alert("No funciona");
+                    alert("No manda mensaje");
                 } else {
-                    alert("Mostrar Chat");
-
+                    alert("Mensaje enviado");
                 }
             }
         }
-        var params = "currentUser=" + currentUser + "&user=" + userGlobal + "&body=" + msg + "&time=";
-        xhttp.open("POST", "load_chats_json.php", true);
+        var params = "currentUser=" + currentUser + "&user=" + userGlobal + "&body=" + msg + "&time=" + date;
+        xhttp.open("POST", "send_msg_json.php", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send(params);
         return false;
