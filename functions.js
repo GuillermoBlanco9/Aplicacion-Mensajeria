@@ -83,7 +83,7 @@ function cargarChats(user) {
 }
 
 function createChats(chats){
-    console.log(chats);
+    //console.log(chats);
     for(var i = 0; i < chats.length; i++){
         var ele = document.createElement('div');
         ele.id = 'chat_' + chats[i];
@@ -100,10 +100,12 @@ function createChats(chats){
 
 function onClick()    
 {   
-    var user=this.id;
-    user.substring(5,user.length);
-    var currentUser = document.getElementById("titulo_").innerHTML.substring(9);
-    
+    var user=this.id.substring(5,this.id.length);
+    //user.substring(5,user.length);
+    var tituloInnerHTML = document.getElementById("titulo_").innerHTML;
+    var currentUser = tituloInnerHTML.substring(9, tituloInnerHTML.length);
+    console.log(currentUser);
+    console.log(user);
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -111,7 +113,9 @@ function onClick()
                 alert("No funciona");
             } else {
                 alert("Mostrar Chat");
+                //console.log(JSON.parse(this.responseText));
                 //metodo para sacar el div con los chats
+                cargarConversacion(JSON.parse(this.responseText));
             }
         }
     }
@@ -122,5 +126,32 @@ function onClick()
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(params);
     return false;
-
 }   
+
+function cargarConversacion(arrayMsg){
+    //console.log(arrayMsg);
+    //en este for se pasa el tiempo de los mensajes a formato date y luego se ordenan
+    for(var i = 0; i < arrayMsg.length; i++){
+        //arrayMsg[i].time = new Date()
+        var tmp = arrayMsg[i].time;
+        /*/tmp = new Date(tmp.substring(0.4, tmp.substring(5,7), tmp.substring(8,10),
+                        tmp.substring(11,13),
+                        tmp.substring(14,16),
+                        tmp.substring(17,19)));*/
+        arrayMsg[i].time = new Date(tmp); 
+        //console.log(arrayMsg[i].time);
+    }
+    arrayMsg.sort(function (a,b){
+        return a.time - b.time;
+    });
+    while ( document.getElementById('conver_id').firstChild)
+        document.getElementById('conver_id').removeChild(document.getElementById('conver_id').firstChild);
+    for(var i = 0; i < arrayMsg.length; i++){
+        var p = document.createElement('p');
+        p.innerHTML =  arrayMsg[i].origin_user_id + ' dijo:<br> ' + arrayMsg[i].body
+                        + '<br>Time: ' + arrayMsg[i].time + '<br><br>';
+        document.getElementById('conver_id').appendChild(p);
+        document.getElementById('conver_id').style.overflow = 'scroll';
+    }
+    console.log(arrayMsg);
+}

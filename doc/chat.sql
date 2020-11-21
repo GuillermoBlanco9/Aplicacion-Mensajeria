@@ -28,7 +28,7 @@ create table if not exists `message`
   `id_msg` int(10) NOT NULL,
   `body` varchar(1000) NOT NULL,
   `origin_user_id` int(10) NOT NULL,
-  `time` datetime NOT NULL
+  `time` varchar(35) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
@@ -94,30 +94,30 @@ INSERT INTO `users` (`code`, `name`, `surname`, `email`, `password`, `address`, 
 
 
 INSERT INTO `message` (`id_msg`,`body`,`origin_user_id`,`time`) VALUES
-  (null,'Lorem ipsum dolor sit amet','1','2020-11-12 10:10:10'),
-  (null,'Lorem ipsum dolor sit amet','2','2020-11-13 10:10:30'),
-  (null,'Lorem ipsum dolor sit amet','1','2020-11-13 10:11:10'),
-  (null,'Lorem ipsum dolor sit amet','2','2020-11-13 10:10:20'),
-   (null,'Lorem ipsum dolor sit amet','1','2020-11-14 10:10:10'),
-  (null,'Lorem ipsum dolor sit amet','2','2020-11-15 10:10:30'),
-  (null,'Lorem ipsum dolor sit amet','1','2020-11-15 10:11:10'),
-  (null,'Lorem ipsum dolor sit amet','2','2020-11-15 10:10:20'),
-   (null,'Lorem ipsum dolor sit amet','1','2020-11-16 10:10:10'),
-  (null,'Lorem ipsum dolor sit amet','2','2020-11-17 10:10:30'),
-  (null,'Lorem ipsum dolor sit amet','1','2020-11-17 10:11:10'),
-  (null,'Lorem ipsum dolor sit amet','1','2020-11-17 10:10:20'),
-  (null,'Lorem ipsum dolor sit amet','3','2020-11-12 10:10:10'),
-  (null,'Lorem ipsum dolor sit amet','2','2020-11-13 10:10:30'),
-  (null,'Lorem ipsum dolor sit amet','3','2020-11-13 10:11:10'),
-  (null,'Lorem ipsum dolor sit amet','2','2020-11-13 10:10:20'),
-   (null,'Lorem ipsum dolor sit amet','3','2020-11-14 10:10:10'),
-  (null,'Lorem ipsum dolor sit amet','2','2020-11-15 10:10:30'),
-  (null,'Lorem ipsum dolor sit amet','3','2020-11-15 10:11:10'),
-  (null,'Lorem ipsum dolor sit amet','2','2020-11-15 10:10:20'),
-   (null,'Lorem ipsum dolor sit amet','3','2020-11-16 10:10:10'),
-  (null,'Lorem ipsum dolor sit amet','2','2020-11-17 10:10:30'),
-  (null,'Lorem ipsum dolor sit amet','3','2020-11-17 10:11:10'),
-  (null,'Lorem ipsum dolor sit amet','3','2020-11-17 10:10:20');
+  (null,'Lorem ipsum dolor sit amet','1','November 12, 2020 10:10:10'),
+  (null,'Lorem ipsum dolor sit amet','2','November 13, 2020 10:10:30'),
+  (null,'Lorem ipsum dolor sit amet','1','November 13, 2020 10:11:10'),
+  (null,'Lorem ipsum dolor sit amet','2','November 13, 2020 10:10:20'),
+   (null,'Lorem ipsum dolor sit amet','1','November 14, 2020 10:10:10'),
+  (null,'Lorem ipsum dolor sit amet','2','November 15, 2020 10:10:30'),
+  (null,'Lorem ipsum dolor sit amet','1','November 15, 2020 10:11:10'),
+  (null,'Lorem ipsum dolor sit amet','2','November 15, 2020 10:10:20'),
+   (null,'Lorem ipsum dolor sit amet','1','November 16, 2020 10:10:10'),
+  (null,'Lorem ipsum dolor sit amet','2','November 17, 2020 10:10:30'),
+  (null,'Lorem ipsum dolor sit amet','1','November 17, 2020 10:11:10'),
+  (null,'Lorem ipsum dolor sit amet','1','November 17, 2020 10:10:20'),
+  (null,'Lorem ipsum dolor sit amet','3','November 12, 2020 10:10:10'),
+  (null,'Lorem ipsum dolor sit amet','2','November 13, 2020 10:10:30'),
+  (null,'Lorem ipsum dolor sit amet','3','November 13, 2020 10:11:10'),
+  (null,'Lorem ipsum dolor sit amet','2','November 13, 2020 10:10:20'),
+   (null,'Lorem ipsum dolor sit amet','3','November 14, 2020 10:10:10'),
+  (null,'Lorem ipsum dolor sit amet','2','November 15, 2020 10:10:30'),
+  (null,'Lorem ipsum dolor sit amet','3','November 15, 2020 10:11:10'),
+  (null,'Lorem ipsum dolor sit amet','2','November 15, 2020 10:10:20'),
+   (null,'Lorem ipsum dolor sit amet','3','November 16, 2020 10:10:10'),
+  (null,'Lorem ipsum dolor sit amet','2','November 17, 2020 10:10:30'),
+  (null,'Lorem ipsum dolor sit amet','3','November 17, 2020 10:11:10'),
+  (null,'Lorem ipsum dolor sit amet','3','November 17, 2020 10:10:20');
 
 
   -- -------------------------------------------------------------------------------------------------

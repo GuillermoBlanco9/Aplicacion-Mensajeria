@@ -78,37 +78,49 @@ function get_username($code){
 function get_conversation($user,$currentUser){
 	$code_user=get_code($user);
 	$code_current_user=get_code($currentUser);
+	/*echo ' user: ' . $user;
+	echo ' current user: ' . $currentUser;
+	echo ' code user: ' . $code_user;
+	echo ' code current user: ' . $code_current_user;
+	*/
+	$arrayMsg = array();
 	$res = load_config(dirname(__FILE__)."/configuration.xml", dirname(__FILE__)."/configuration.xsd");
 	$db = new PDO($res[0], $res[1], $res[2]);
-	$ins = "SELECT `message`.`body`,`users`.`username` from message join users 
-			on `users`.`code` = `message`.`origin_user_id` 
-			where `message`.`origin_user_id`='$code_user'";
-	$ins2 = "SELECT `message`.`body`,`users`.`username` from message join users 
-			on `users`.`code` = `message`.`origin_user_id` 
-			where `message`.`origin_user_id`='$code_current_user'";
+	//mensajes de current_user a user
+	$ins = "SELECT `message`.`body`,`message`.`origin_user_id`, `message`.`time` 
+			from message join sent_to 
+			on `sent_to`.`id_msg` = `message`.`id_msg` 
+			where `message`.`origin_user_id` like '$code_current_user' AND 
+			`sent_to`.`id_dest_user`='$code_user'";
+	//mensajes de current_user a user
+	$ins2 = "SELECT `message`.`body`,`message`.`origin_user_id`, `message`.`time` 
+			from message join sent_to 
+			on `sent_to`.`id_msg` = `message`.`id_msg` 
+			where `message`.`origin_user_id` like '$code_user' AND 
+			`sent_to`.`id_dest_user`='$code_current_user'";
 	$resul = $db->query($ins);
 	$resul2 = $db->query($ins2);
-	$arrayMsg = array();
-	
 	if($resul->rowCount() > 0 || $resul2->rowCount() > 0){
-		
-		while($row = $resul->fetch())
+		while($row = $resul->fetch()){
+			$row['origin_user_id'] = get_username($row['origin_user_id']);
 			array_push($arrayMsg, $row);
-		while($row = $resul2->fetch())
+		}
+		while($row = $resul2->fetch()){
+			$row['origin_user_id'] = get_username($row['origin_user_id']);
 			array_push($arrayMsg, $row);
-
-
-			print_r($arrayMsg);
-		
+		};
+		return $arrayMsg;
+	}else{
+		return FALSE;
 	}
-	return $arrayMsg;
+		
 }
 
 function get_code($username){
 	$res = load_config(dirname(__FILE__)."/configuration.xml", dirname(__FILE__)."/configuration.xsd");
 	$db = new PDO($res[0], $res[1], $res[2]);
 	$ins = "SELECT `users`.`code` from `users` 
-				where `users`.`username` like '$username' limit 1";
+				where `users`.`username` like '$username'";
 	$resul = $db->query($ins);
 	if($resul->rowCount() === 1){
 		$resul2 = $resul->fetch();
