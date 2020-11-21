@@ -1,3 +1,5 @@
+var userGlobal;
+
 function login() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -44,14 +46,13 @@ function cargarPaginaPrincipal(user) {
     conver.id = 'conver_id'
     conver.className = 'conver';
     //Form para enviar mensajes
-    var form = document.createElement('form');
-    form.id = 'form_message';
+    var form=document.createElement('div');
+    form.id='form_message';
+   
     var input = document.createElement('input');
+    input.id = 'imput_msg';
     var button = document.createElement('button');
-    button.setAttribute('type','submit');
-    //AÑADIR FUNCION DESPUES DE EL RETURN
-    button.setAttribute('onsubmit', 'return enviarMensaje();');
-    button.innerHTML = 'send';
+    button.addEventListener('click',sendMessage);
     //colgar en el dom
     form.appendChild(input);
     form.appendChild(button);
@@ -82,26 +83,25 @@ function cargarChats(user) {
     xhttp.send(params);
 }
 
-function createChats(chats){
+function createChats(chats) {
     //console.log(chats);
-    for(var i = 0; i < chats.length; i++){
+    for (var i = 0; i < chats.length; i++) {
         var ele = document.createElement('div');
         ele.id = 'chat_' + chats[i];
-        ele.style.textAlign='center';
-        ele.addEventListener("click",onClick)
+        ele.style.textAlign = 'center';
+        ele.addEventListener("click", onClick)
         var p = document.createElement('p');
         p.innerHTML = chats[i];
         ele.appendChild(p);
         document.getElementById('chat_id').appendChild(ele);
     }
-    
+
 }
 
 
-function onClick()    
-{   
-    var user=this.id.substring(5,this.id.length);
-    //user.substring(5,user.length);
+function onClick() {
+    var user = this.id.substring(5, this.id.length);
+    userGlobal=user;
     var tituloInnerHTML = document.getElementById("titulo_").innerHTML;
     var currentUser = tituloInnerHTML.substring(9, tituloInnerHTML.length);
     console.log(currentUser);
@@ -112,48 +112,83 @@ function onClick()
             if (this.responseText === "FALSE") {
                 alert("No funciona");
             } else {
-                alert("Mostrar Chat");
-                //console.log(JSON.parse(this.responseText));
+                
                 //metodo para sacar el div con los chats
                 cargarConversacion(JSON.parse(this.responseText));
             }
         }
     }
-    
-    
+
+
     var params = "currentUser=" + currentUser + "&user=" + user;
     xhttp.open("POST", "load_chats_json.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(params);
     return false;
-}   
+}
 
-function cargarConversacion(arrayMsg){
+function cargarConversacion(arrayMsg) {
     //console.log(arrayMsg);
     //en este for se pasa el tiempo de los mensajes a formato date y luego se ordenan
-    for(var i = 0; i < arrayMsg.length; i++){
+    for (var i = 0; i < arrayMsg.length; i++) {
         //arrayMsg[i].time = new Date()
         var tmp = arrayMsg[i].time;
         /*/tmp = new Date(tmp.substring(0.4, tmp.substring(5,7), tmp.substring(8,10),
                         tmp.substring(11,13),
                         tmp.substring(14,16),
                         tmp.substring(17,19)));*/
-        arrayMsg[i].time = new Date(tmp); 
+        arrayMsg[i].time = new Date(tmp);
         //console.log(arrayMsg[i].time);
     }
-    arrayMsg.sort(function (a,b){
+    arrayMsg.sort(function (a, b) {
         return a.time - b.time;
     });
-    while ( document.getElementById('conver_id').firstChild)
+    while (document.getElementById('conver_id').firstChild)
         document.getElementById('conver_id').removeChild(document.getElementById('conver_id').firstChild);
-    for(var i = 0; i < arrayMsg.length; i++){
+    for (var i = 0; i < arrayMsg.length; i++) {
         var p = document.createElement('p');
-        p.innerHTML =  arrayMsg[i].origin_user_id + ' dijo:<br> ' + arrayMsg[i].body
-                        + '<br>Time: ' + arrayMsg[i].time + '<br><br>';
+        p.innerHTML = arrayMsg[i].origin_user_id + ' dijo:<br> ' + arrayMsg[i].body +
+            '<br>Time: ' + arrayMsg[i].time + '<br><br>';
         document.getElementById('conver_id').appendChild(p);
         document.getElementById('conver_id').style.overflow = 'scroll';
     }
     console.log(arrayMsg);
 }
 
+function sendMessage() {
+    var msg = document.getElementById('input_msg').value;
+    var tituloInnerHTML = document.getElementById('titulo_').innerHTML;
+    var currentUser = tituloInnerHTML.substring(9, tituloInnerHTML.length);
 
+
+    var  time = new Date().toUTCString().slice(0,-4);
+
+    console.log(time);
+    console.log(msg);
+    console.log(currentUser);
+
+
+    /*
+    if (!(msg=='')) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                if (this.responseText === "FALSE") {
+                    alert("No funciona");
+                } else {
+                    alert("Mostrar Chat");
+
+                }
+            }
+        }
+
+        var params = "currentUser=" + currentUser + "&user=" + userGlobal + "&body=" + msg + "&time=";
+        xhttp.open("POST", "load_chats_json.php", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send(params);
+        return false;
+    } else {
+        return false;
+    }
+*/
+}
