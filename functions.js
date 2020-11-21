@@ -159,20 +159,13 @@ function sendMessage() {
     var msg = document.getElementById('input_msg').value;
     var tituloInnerHTML = document.getElementById('titulo_').innerHTML;
     var currentUser = tituloInnerHTML.substring(9, tituloInnerHTML.length);
+    var date=new Date().toISOString().slice(0, 19).replace('T', ' ');
+    console.log(date);
 
-
-    var time = new Date();
     
-    time=time.toISOString().slice(0, 19).replace('T', ' ');
-
-    console.log(time);
+    /*console.log(time);
     console.log(msg);
-    console.log(currentUser);
-
-    
-
-
-    /*
+    console.log(currentUser);*/
     if (!(msg=='')) {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
@@ -185,7 +178,6 @@ function sendMessage() {
                 }
             }
         }
-
         var params = "currentUser=" + currentUser + "&user=" + userGlobal + "&body=" + msg + "&time=";
         xhttp.open("POST", "load_chats_json.php", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -194,5 +186,4 @@ function sendMessage() {
     } else {
         return false;
     }
-*/
 }
