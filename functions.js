@@ -50,7 +50,7 @@ function cargarPaginaPrincipal(user) {
     var button = document.createElement('button');
     button.setAttribute('type','submit');
     //AÑADIR FUNCION DESPUES DE EL RETURN
-    //button.setAttribute('onsubmit', 'return nombreFuncion()');
+    button.setAttribute('onsubmit', 'return enviarMensaje();');
     button.innerHTML = 'send';
     //colgar en el dom
     form.appendChild(input);
@@ -155,3 +155,5 @@ function cargarConversacion(arrayMsg){
     }
     console.log(arrayMsg);
 }
+
+
