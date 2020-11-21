@@ -5,7 +5,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	if($usu===FALSE){ 
         echo "FALSE"; 
     }else{
-        sesion_start();
+        //sesion_start();
         //$_SESSION['user'] = $_POST['user'];   
 	    echo "TRUE";   
     }  	

@@ -144,10 +144,33 @@ function send_message($current_user, $user,$body, $time){
 		$db->rollBack();
 		return FALSE;
 	}
-	$ins = 
+	
+	$ins = "SELECT `id_msg` FROM `message` WHERE `body` LIKE '$body' and `origin_user_id` LIKE '$code_current_user' and `time` like '$time'";
+	$resul = $db->query($ins);
+	if($resul->rowCount() === 1){
+		$resul2 = $resul->fetch();
+		print_r($resul2) ;
+		$ins = "INSERT INTO `sent_to`(`code_sent`, `id_msg`, `id_dest_user`, `read`) VALUES
+		(null,'$resul2['id_msg']', '$code_user', 0)";
+		$resul = $db->query($ins);
+		if(!$resul){
+			print_r($db->errorInfo());
+			$db->rollBack();
+			return FALSE;
+		}
+		else{
+			return TRUE;
+		}
+	}
+	else
+		return FALSE;
+	
 	//$ins2 = "INSERT INTO `sent_to`(`code_sent`, `body`, `id_dest_user`, `ream`) VALUES
 	//		(null,'$body', '$code_current_user', '$time')";
 }
+
+
+
 
 
 

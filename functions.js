@@ -112,14 +112,11 @@ function onClick() {
             if (this.responseText === "FALSE") {
                 alert("No funciona");
             } else {
-                
                 //metodo para sacar el div con los chats
                 cargarConversacion(JSON.parse(this.responseText));
             }
         }
     }
-
-
     var params = "currentUser=" + currentUser + "&user=" + user;
     xhttp.open("POST", "load_chats_json.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -162,7 +159,7 @@ function sendMessage() {
     var date=new Date().toISOString().slice(0, 19).replace('T', ' ');
     console.log(date);
 
-    
+
     /*console.log(time);
     console.log(msg);
     console.log(currentUser);*/
@@ -173,7 +170,7 @@ function sendMessage() {
                 if (this.responseText === "FALSE") {
                     alert("No manda mensaje");
                 } else {
-                    alert("Mensaje enviado");
+                    updateConversation();
                 }
             }
         }
@@ -185,4 +182,30 @@ function sendMessage() {
     } else {
         return false;
     }
+}
+
+
+function updateConversation()
+{
+    
+   
+    var tituloInnerHTML = document.getElementById("titulo_").innerHTML;
+    var currentUser = tituloInnerHTML.substring(9, tituloInnerHTML.length);
+  
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            if (this.responseText === "FALSE") {
+                alert("No funciona");
+            } else {
+                //metodo para sacar el div con los chats
+                cargarConversacion(JSON.parse(this.responseText));
+            }
+        }
+    }
+    var params = "currentUser=" + currentUser + "&user=" + userGlobal;
+    xhttp.open("POST", "load_chats_json.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send(params);
+    return false;
 }
