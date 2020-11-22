@@ -7,7 +7,6 @@ function login() {
             if (this.responseText === "FALSE") {
                 alert("Check user and password");
             } else {
-                alert("Login correct");
                 cargarPaginaPrincipal(user);
             }
         }
@@ -34,9 +33,15 @@ function cargarPaginaPrincipal(user) {
     chat.className = 'chat';
     //Titulo para los chats con el nombre de usuario
     var h3 = document.createElement('h3');
+    h3.style.margin='10px';
     h3.id = 'titulo_';
     h3.innerHTML = 'CHATS OF ' + user;
     chat.appendChild(h3);
+    //boton para agregar
+    var agregar=document.createElement('button');
+    agregar.addEventListener('click',addFriends);
+    agregar.innerHTML='<b> Add friends +</b>'
+    chat.appendChild(agregar);
     //contenedor de la conversacion y la barra para escribir
     var contenedor_conver = document.createElement('div');
     contenedor_conver.id = "contenedor_conver_id";
@@ -48,7 +53,6 @@ function cargarPaginaPrincipal(user) {
     //Form para enviar mensajes
     var form=document.createElement('div');
     form.id='form_message';
-   
     var input = document.createElement('input');
     input.id = 'input_msg';
     var button = document.createElement('button');
@@ -63,6 +67,8 @@ function cargarPaginaPrincipal(user) {
     document.body.appendChild(principal);
     cargarChats(user);
     //Peticion para los chats
+    
+    
 }
 
 function cargarChats(user) {
@@ -92,9 +98,14 @@ function createChats(chats) {
         ele.addEventListener("click", onClick)
         var p = document.createElement('p');
         p.innerHTML = chats[i];
+        p.style.margin='10px';
         ele.appendChild(p);
         document.getElementById('chat_id').appendChild(ele);
     }
+
+    
+
+
 
 }
 
@@ -124,6 +135,17 @@ function onClick() {
     return false;
 }
 
+function addFriends()
+{
+    var username=window.prompt("Friend Username");
+
+    
+
+
+}
+
+
+
 function cargarConversacion(arrayMsg) {
     //console.log(arrayMsg);
     //en este for se pasa el tiempo de los mensajes a formato date y luego se ordenan
@@ -148,6 +170,10 @@ function cargarConversacion(arrayMsg) {
             '<br>Time: ' + arrayMsg[i].time + '<br><br>';
         document.getElementById('conver_id').appendChild(p);
         document.getElementById('conver_id').style.overflow = 'scroll';
+        document.getElementById('conver_id').style.overflowX = 'hidden';
+        var objDiv = document.getElementById("conver_id");
+        objDiv.scrollTop = objDiv.scrollHeight;
+        
     }
     console.log(arrayMsg);
 }
@@ -170,7 +196,7 @@ function sendMessage() {
                 if (this.responseText === "FALSE") {
                     alert("No manda mensaje");
                 } else {
-                    updateConversation();
+                    
                 }
             }
         }
@@ -185,27 +211,3 @@ function sendMessage() {
 }
 
 
-function updateConversation()
-{
-    
-   
-    var tituloInnerHTML = document.getElementById("titulo_").innerHTML;
-    var currentUser = tituloInnerHTML.substring(9, tituloInnerHTML.length);
-  
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            if (this.responseText === "FALSE") {
-                alert("No funciona");
-            } else {
-                //metodo para sacar el div con los chats
-                cargarConversacion(JSON.parse(this.responseText));
-            }
-        }
-    }
-    var params = "currentUser=" + currentUser + "&user=" + userGlobal;
-    xhttp.open("POST", "load_chats_json.php", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send(params);
-    return false;
-}
