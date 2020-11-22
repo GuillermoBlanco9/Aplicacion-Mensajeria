@@ -138,7 +138,36 @@ function onClick() {
 function addFriends()
 {
     var username=window.prompt("Friend Username");
+   
+    var tituloInnerHTML = document.getElementById('titulo_').innerHTML;
+    var currentUser = tituloInnerHTML.substring(9, tituloInnerHTML.length);
+    var msg = currentUser+' added you';
+    var date=new Date().toISOString().slice(0, 19).replace('T', ' ');
+    console.log(date);
 
+
+    /*console.log(time);
+    console.log(msg);
+    console.log(currentUser);*/
+    if (!(msg=='')) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                if (this.responseText === "FALSE") {
+                    alert("No manda mensaje");
+                } else {
+                    
+                }
+            }
+        }
+        var params = "currentUser=" + currentUser + "&user=" + username + "&body=" + msg + "&time=" + date;
+        xhttp.open("POST", "send_msg_json.php", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send(params);
+        return false;
+    } else {
+        return false;
+    }
     
 
 
