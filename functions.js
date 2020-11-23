@@ -141,6 +141,7 @@ function addFriends()
     var currentUser = tituloInnerHTML.substring(9, tituloInnerHTML.length);
     var msg = currentUser+' added you';
     var date=new Date().toISOString().slice(0, 19).replace('T', ' ');
+    
     if (!(msg=='')) {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
@@ -148,7 +149,7 @@ function addFriends()
                 if (this.responseText === "FALSE") {
                     alert("No manda mensaje");
                 } else {
-
+                    
                 }
             }
         }
@@ -156,7 +157,8 @@ function addFriends()
         xhttp.open("POST", "send_msg_json.php", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send(params);
-        return false;
+        
+        return false;   
     } else {
         return false;
     }
