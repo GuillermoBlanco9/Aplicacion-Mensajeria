@@ -119,7 +119,7 @@ function get_conversation($user,$currentUser){
 
 function update_read($current_user, $user){
 	$code_user=get_code($user);
-	$code_current_user=get_code($currentUser);
+	$code_current_user=get_code($current_user);
 	$res = load_config(dirname(__FILE__)."/configuration.xml", dirname(__FILE__)."/configuration.xsd");
 	$db = new PDO($res[0], $res[1], $res[2]);
 	$ins3 = "UPDATE `sent_to` INNER JOIN `message` 
