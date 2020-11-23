@@ -1,26 +1,29 @@
 body{
     height: 100vh;
-    
+    font-size: 16px; 
 }
 
 div.contenedor-principal{
-    margin: 1.2em auto;
+    margin: 0 auto;
     width: 98%;
     display: flex;
     justify-content: space-between;
     height: 100vh;
+    border: 3px solid #f70f0f;
 }
 
 div.contenedor-principal .chat{
-    border: 1px solid #000000;
+    border: 1px solid #f70f0f;
     display: flex;
     flex-direction: column;
     height: 100%;
     flex-basis: 15%;
+    background-color: #8033FF;
+    color:#FFFFFF;
 }
 
 div.contenedor-principal .contenedor_conver{
-    border: 1px solid #000000;
+    border: 1px solid #f70f0f;
     height: 100%;
     flex-basis: 85%;
     display: flex;
@@ -31,7 +34,6 @@ div.contenedor-principal .contenedor_conver{
 div.contenedor-conver .conver{
     width: 100%;
     height: 90%;
-    border-bottom: 0.5px solid #448526;
 }
 
 div.conver #form_message{
@@ -43,13 +45,29 @@ div.conver #form_message{
 }
 
 #form_message input{
-    
     width: 90%;
     flex-grow: 2;
 }
 
 #form_message button{
-    
     flex-basis: 10%;
     height: 2em;
+}
+
+/*Estilos visuales*/
+#titulo_{
+    margin: 0;
+    font-size: 1.5em;
+    padding: 1em;
+    text-align: center;
+    border-bottom: 1.2px solid #FFFFFF;
+    line-height: 1.5em;
+}
+
+.chat div {
+    display: block;
+    font-size: 1.2em;
+    border-top: 0.5px solid #FFFFFF;
+    border-bottom: 0.5px solid #FFFFFF;
+    cursor: pointer;
 }

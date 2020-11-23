@@ -37,7 +37,7 @@ function cargarPaginaPrincipal(user) {
     chat.className = 'chat';
     //Titulo para los chats con el nombre de usuario
     var h3 = document.createElement('h3');
-    h3.style.margin='10px';
+    //h3.style.margin='10px';
     h3.id = 'titulo_';
     h3.innerHTML = 'CHATS OF ' + user;
     chat.appendChild(h3);
@@ -83,8 +83,8 @@ function cargarChats(user) {
                 alert("Something went wrong");
             } else {
                 //alert('va bien');
-                intervalconversation = setInterval( createChats(JSON.parse(this.responseText)),1000);
-                //createChats(JSON.parse(this.responseText));
+                //intervalconversation = setInterval( createChats(JSON.parse(this.responseText)),1000);
+                createChats(JSON.parse(this.responseText));
             }
         }
     }
