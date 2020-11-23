@@ -137,7 +137,8 @@ function onClick() {
     userGlobal=user;
     var tituloInnerHTML = document.getElementById("titulo_").innerHTML;
     var currentUser = tituloInnerHTML.substring(9, tituloInnerHTML.length);
-    //Poner en negro si hay mensajes no leidos
+    updateRead(currentUser);
+    //Poner en negro si hay mensajes  leidos
     document.getElementById(this.id).style.color = 'black';
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -152,6 +153,24 @@ function onClick() {
     }
     var params = "currentUser=" + currentUser + "&user=" + user;
     xhttp.open("POST", "load_chats_json.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send(params);
+    return false;
+}
+
+function updateRead(currentUser){
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            if (this.responseText === "FALSE") {
+                alert("Actualizado");
+            } else {
+                alert("No actualizado");
+            }
+        }
+    }
+    var params = "currentUser=" + currentUser + "&user=" + userGlobal;
+    xhttp.open("POST", "update_read.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(params);
     return false;
