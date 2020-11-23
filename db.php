@@ -78,22 +78,17 @@ function get_username($code){
 function get_conversation($user,$currentUser){
 	$code_user=get_code($user);
 	$code_current_user=get_code($currentUser);
-	/*echo ' user: ' . $user;
-	echo ' current user: ' . $currentUser;
-	echo ' code user: ' . $code_user;
-	echo ' code current user: ' . $code_current_user;
-	*/
 	$arrayMsg = array();
 	$res = load_config(dirname(__FILE__)."/configuration.xml", dirname(__FILE__)."/configuration.xsd");
 	$db = new PDO($res[0], $res[1], $res[2]);
 	//mensajes de current_user a user
-	$ins = "SELECT `message`.`body`,`message`.`origin_user_id`, `message`.`time` 
+	$ins = "SELECT `message`.`body`,`message`.`origin_user_id`, `message`.`time`, `sent_to`.`read`
 			from message join sent_to 
 			on `sent_to`.`id_msg` = `message`.`id_msg` 
 			where `message`.`origin_user_id` like '$code_current_user' AND 
 			`sent_to`.`id_dest_user`='$code_user'";
 	//mensajes de current_user a user
-	$ins2 = "SELECT `message`.`body`,`message`.`origin_user_id`, `message`.`time` 
+	$ins2 = "SELECT `message`.`body`,`message`.`origin_user_id`, `message`.`time`, `sent_to`.`read` 
 			from message join sent_to 
 			on `sent_to`.`id_msg` = `message`.`id_msg` 
 			where `message`.`origin_user_id` like '$code_user' AND 
@@ -109,11 +104,35 @@ function get_conversation($user,$currentUser){
 			$row['origin_user_id'] = get_username($row['origin_user_id']);
 			array_push($arrayMsg, $row);
 		};
+	//Update read state
+	$ins3 = "UPDATE `sent_to` INNER JOIN `message`.`origin_user_id` 
+			on `sent_to`.`id_msg` = `message`.`id_msg` 
+			SET `sent_to`.`read`=1 WHERE `sent_to`.`read` = 0 AND 
+			`sent_to`.`id_dest_user` LIKE '$code_user' AND 
+			`message`.`origin_user_id` LIKE '$code_current_user'";
+	$resul3 = $db->query($ins3);
 		return $arrayMsg;
 	}else{
 		return FALSE;
-	}
-		
+	}	
+}
+
+function update_read($current_user, $user){
+	$code_user=get_code($user);
+	$code_current_user=get_code($current_user);
+	$res = load_config(dirname(__FILE__)."/configuration.xml", dirname(__FILE__)."/configuration.xsd");
+	$db = new PDO($res[0], $res[1], $res[2]);
+	$ins3 = "UPDATE `sent_to` INNER JOIN `message` 
+			on `sent_to`.`id_msg` = `message`.`id_msg` 
+			SET `sent_to`.`read`=1 
+			WHERE `sent_to`.`read` = 0 AND 
+			`sent_to`.`id_dest_user` LIKE '$code_current_user' AND 
+			`message`.`origin_user_id` LIKE '$code_user'";
+	$resul = $db->query($ins3);
+	if($resul === TRUE)
+		return TRUE;
+	else 
+		return FALSE;
 }
 
 function get_code($username){

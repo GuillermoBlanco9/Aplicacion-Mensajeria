@@ -42,10 +42,11 @@ function cargarPaginaPrincipal(user) {
     h3.innerHTML = 'CHATS OF ' + user;
     chat.appendChild(h3);
     //boton para agregar
-    var agregar=document.createElement('button');
+    /*var agregar=document.createElement('button');
     agregar.addEventListener('click',addFriends);
     agregar.innerHTML='<b> Add friends +</b>'
     chat.appendChild(agregar);
+    */
     //contenedor de la conversacion y la barra para escribir
     var contenedor_conver = document.createElement('div');
     contenedor_conver.id = "contenedor_conver_id";
@@ -105,7 +106,29 @@ function createChats(chats) {
         p.style.margin='10px';
         ele.appendChild(p);
         document.getElementById('chat_id').appendChild(ele);
+        //Comprobar leidos y no leidos;
+        checkRead(chats[i]);
+
     }
+}
+
+//Función que comprueba los leidos
+function checkRead(chat){
+    var tituloInnerHTML = document.getElementById("titulo_").innerHTML;
+    var currentUser = tituloInnerHTML.substring(9, tituloInnerHTML.length);
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            if (this.responseText === "FALSE") {
+                document.getElementById('chat_' + chat).style.color = 'red';
+            } 
+        }
+    }
+    var params = "currentUser=" + currentUser + "&user=" + chat;
+    xhttp.open("POST", "chek_read.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send(params);
+    return false;
 }
 
 //Carga la conversación al hacer click en un chat
@@ -114,8 +137,9 @@ function onClick() {
     userGlobal=user;
     var tituloInnerHTML = document.getElementById("titulo_").innerHTML;
     var currentUser = tituloInnerHTML.substring(9, tituloInnerHTML.length);
-    console.log(currentUser);
-    console.log(user);
+    updateRead(currentUser);
+    //Poner en negro si hay mensajes  leidos
+    document.getElementById(this.id).style.color = 'black';
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -134,34 +158,22 @@ function onClick() {
     return false;
 }
 
-function addFriends()
-{
-    var username=window.prompt("Friend Username");
-    var tituloInnerHTML = document.getElementById('titulo_').innerHTML;
-    var currentUser = tituloInnerHTML.substring(9, tituloInnerHTML.length);
-    var msg = currentUser+' added you';
-    var date=new Date().toISOString().slice(0, 19).replace('T', ' ');
-    
-    if (!(msg=='')) {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                if (this.responseText === "FALSE") {
-                    alert("No manda mensaje");
-                } else {
-                    
-                }
+function updateRead(currentUser){
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            if (this.responseText === "FALSE") {
+                alert("Actualizado");
+            } else {
+                alert("No actualizado");
             }
         }
-        var params = "currentUser=" + currentUser + "&user=" + username + "&body=" + msg + "&time=" + date;
-        xhttp.open("POST", "send_msg_json.php", true);
-        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.send(params);
-        
-        return false;   
-    } else {
-        return false;
     }
+    var params = "currentUser=" + currentUser + "&user=" + userGlobal;
+    xhttp.open("POST", "update_read.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send(params);
+    return false;
 }
 
 
@@ -241,4 +253,31 @@ function updateConver(){
     return false;
 }
 
+/*function addFriends()
+{
+    var username=window.prompt("Friend Username");
+    var tituloInnerHTML = document.getElementById('titulo_').innerHTML;
+    var currentUser = tituloInnerHTML.substring(9, tituloInnerHTML.length);
+    var msg = currentUser+' added you';
+    var date=new Date().toISOString().slice(0, 19).replace('T', ' ');
+    if (!(msg=='')) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                if (this.responseText === "FALSE") {
+                    alert("No manda mensaje");
+                } else {
 
+                }
+            }
+        }
+        var params = "currentUser=" + currentUser + "&user=" + username + "&body=" + msg + "&time=" + date;
+        xhttp.open("POST", "send_msg_json.php", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send(params);
+        return false;
+    } else {
+        return false;
+    }
+}
+*/
