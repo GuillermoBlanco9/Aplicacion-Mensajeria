@@ -1,7 +1,7 @@
 //Variable usada para guardar el nombre de el usuario al que queremos
 //mandar un mensaje
 var userGlobal;
-
+var intervalconversation;
 //Petición para el loggin
 function login() {
     var xhttp = new XMLHttpRequest();
@@ -83,7 +83,8 @@ function cargarChats(user) {
                 alert("Something went wrong");
             } else {
                 //alert('va bien');
-                createChats(JSON.parse(this.responseText));
+                intervalconversation = setInterval( createChats(JSON.parse(this.responseText)),1000);
+                //createChats(JSON.parse(this.responseText));
             }
         }
     }
@@ -108,7 +109,6 @@ function createChats(chats) {
         document.getElementById('chat_id').appendChild(ele);
         //Comprobar leidos y no leidos;
         checkRead(chats[i]);
-
     }
 }
 
