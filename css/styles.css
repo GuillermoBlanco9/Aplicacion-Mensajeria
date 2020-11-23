@@ -1,14 +1,13 @@
 body{
     height: 100vh;
-    overflow-x: hidden;
 }
 
-.contenedor-principal{
-    margin: 0em auto;
+div.contenedor-principal{
+    margin: 1.2em auto;
     width: 98%;
     display: flex;
     justify-content: space-between;
-    height: 100%;
+    height: 100vh;
 }
 
 div.contenedor-principal .chat{
@@ -19,29 +18,22 @@ div.contenedor-principal .chat{
     flex-basis: 15%;
 }
 
-.contenedor-principal .contenedor_conver{
+div.contenedor-principal .contenedor_conver{
     border: 1px solid #000000;
     height: 100%;
     flex-basis: 85%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-end;
 }
 
-.contenedor-conver .conver{
+div.contenedor-conver .conver{
     width: 100%;
     height: 90%;
     border-bottom: 0.5px solid #448526;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    flex-basis: 45%;
-    flex-grow: 2;
 }
 
-
-#form_message{
-    align-self: flex-end;
+div.conver #form_message{
     width: 100%;
     display: flex;
     flex-direction: row;
