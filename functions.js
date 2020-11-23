@@ -139,7 +139,7 @@ function onClick() {
     var currentUser = tituloInnerHTML.substring(9, tituloInnerHTML.length);
     updateRead(currentUser);
     //Poner en negro si hay mensajes  leidos
-    document.getElementById(this.id).style.color = 'black';
+    document.getElementById(this.id).style.color = '#FFFFFF';
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {

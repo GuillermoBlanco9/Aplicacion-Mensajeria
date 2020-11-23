@@ -31,9 +31,10 @@ div.contenedor-principal .contenedor_conver{
     justify-content: flex-end;
 }
 
-div.contenedor-conver .conver{
+.contenedor_conver .conver{
     width: 100%;
-    height: 90%;
+    height: 100%;
+    background-color: #b9ffb0
 }
 
 div.conver #form_message{
