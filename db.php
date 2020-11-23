@@ -78,22 +78,17 @@ function get_username($code){
 function get_conversation($user,$currentUser){
 	$code_user=get_code($user);
 	$code_current_user=get_code($currentUser);
-	/*echo ' user: ' . $user;
-	echo ' current user: ' . $currentUser;
-	echo ' code user: ' . $code_user;
-	echo ' code current user: ' . $code_current_user;
-	*/
 	$arrayMsg = array();
 	$res = load_config(dirname(__FILE__)."/configuration.xml", dirname(__FILE__)."/configuration.xsd");
 	$db = new PDO($res[0], $res[1], $res[2]);
 	//mensajes de current_user a user
-	$ins = "SELECT `message`.`body`,`message`.`origin_user_id`, `message`.`time` 
+	$ins = "SELECT `message`.`body`,`message`.`origin_user_id`, `message`.`time`, `sent_to`.`read`
 			from message join sent_to 
 			on `sent_to`.`id_msg` = `message`.`id_msg` 
 			where `message`.`origin_user_id` like '$code_current_user' AND 
 			`sent_to`.`id_dest_user`='$code_user'";
 	//mensajes de current_user a user
-	$ins2 = "SELECT `message`.`body`,`message`.`origin_user_id`, `message`.`time` 
+	$ins2 = "SELECT `message`.`body`,`message`.`origin_user_id`, `message`.`time`, `sent_to`.`read` 
 			from message join sent_to 
 			on `sent_to`.`id_msg` = `message`.`id_msg` 
 			where `message`.`origin_user_id` like '$code_user' AND 
