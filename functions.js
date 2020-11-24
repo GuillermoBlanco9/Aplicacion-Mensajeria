@@ -2,6 +2,7 @@
 //mandar un mensaje
 var userGlobal;
 var intervalConversation;
+var intervalRead;
 //Petición para el loggin
 function login() {
     var xhttp = new XMLHttpRequest();
@@ -108,6 +109,7 @@ function createChats(chats) {
         document.getElementById('chat_id').appendChild(ele);
         //Comprobar leidos y no leidos;
         checkRead(chats[i]);
+        //var intervalRead = setInterval(checkRead, 1500, chats[i]);
     }
 }
 
@@ -132,8 +134,9 @@ function checkRead(chat){
 
 //Carga la conversación al hacer click en un chat
 function onClick() {
-        var user = this.id.substring(5, this.id.length);
-        userGlobal=user;
+    clearInterval(intervalConversation);
+    var user = this.id.substring(5, this.id.length);
+    userGlobal=user;
     var tituloInnerHTML = document.getElementById("titulo_").innerHTML;
     var currentUser = tituloInnerHTML.substring(9, tituloInnerHTML.length);
     updateRead(currentUser);
