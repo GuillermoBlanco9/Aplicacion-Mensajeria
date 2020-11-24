@@ -2,7 +2,7 @@
 //mandar un mensaje
 var userGlobal;
 var intervalConversation;
-var intervalRead;
+var intervalReadArray = [];
 //Petición para el loggin
 function login() {
     var xhttp = new XMLHttpRequest();
@@ -108,8 +108,8 @@ function createChats(chats) {
         ele.appendChild(p);
         document.getElementById('chat_id').appendChild(ele);
         //Comprobar leidos y no leidos;
-        checkRead(chats[i]);
-        //var intervalRead = setInterval(checkRead, 1500, chats[i]);
+        //checkRead(chats[i]);
+        intervalReadArray.push(setInterval(checkRead, 1500, chats[i]));
     }
 }
 
