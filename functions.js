@@ -1,7 +1,7 @@
 //Variable usada para guardar el nombre de el usuario al que queremos
 //mandar un mensaje
 var userGlobal;
-var intervalconversation;
+var intervalConversation;
 //Petición para el loggin
 function login() {
     var xhttp = new XMLHttpRequest();
@@ -83,7 +83,6 @@ function cargarChats(user) {
                 alert("Something went wrong");
             } else {
                 //alert('va bien');
-                //intervalconversation = setInterval( createChats(JSON.parse(this.responseText)),1000);
                 createChats(JSON.parse(this.responseText));
             }
         }
@@ -133,8 +132,8 @@ function checkRead(chat){
 
 //Carga la conversación al hacer click en un chat
 function onClick() {
-    var user = this.id.substring(5, this.id.length);
-    userGlobal=user;
+        var user = this.id.substring(5, this.id.length);
+        userGlobal=user;
     var tituloInnerHTML = document.getElementById("titulo_").innerHTML;
     var currentUser = tituloInnerHTML.substring(9, tituloInnerHTML.length);
     updateRead(currentUser);
@@ -148,6 +147,7 @@ function onClick() {
             } else {
                 //metodo para sacar el div con los chats
                 cargarConversacion(JSON.parse(this.responseText));
+                intervalConversation = setInterval(updateConver, 1000);
             }
         }
     }
