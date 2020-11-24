@@ -188,7 +188,22 @@ function send_message($current_user, $user,$body, $time){
 	//	SELECT id_msg FROM message WHERE body LIKE 'Lorem ipsum dolor sit amet' and origin_user_id LIKE 2;	(null,'$body', '$code_current_user', '$time')";
 }
 
-
+function check_read($current_user, $user){
+	$code_user=get_code($user);
+	$code_current_user=get_code($current_user);
+	$res = load_config(dirname(__FILE__)."/configuration.xml", dirname(__FILE__)."/configuration.xsd");
+	$db = new PDO($res[0], $res[1], $res[2]);
+	$ins = "SELECT `sent_to`.`code_sent` FROM `sent_to` 
+			INNER JOIN `message` on `sent_to`.`id_msg` = `message`.`id_msg`
+			WHERE `message`.`origin_user_id` LIKE '$code_user' 
+			AND `sent_to`.`id_dest_user` LIKE '$code_current_user' 
+			AND `sent_to`.`read` = 0";
+	$resul = $db->query($ins);
+	if($resul->rowCount() > 0)
+		return FALSE;
+	else	
+		return TRUE;
+}
 
 
 
