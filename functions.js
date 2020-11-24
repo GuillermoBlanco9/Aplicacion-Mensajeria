@@ -260,3 +260,43 @@ function updateConver(){
     return false;
 }
 
+function addFriends()
+{
+    var username=window.prompt("Friend Username");
+    var tituloInnerHTML = document.getElementById('titulo_').innerHTML;
+    var currentUser = tituloInnerHTML.substring(9, tituloInnerHTML.length);
+    var msg = currentUser+' added you';
+    var date=new Date().toISOString().slice(0, 19).replace('T', ' ');
+    if (!(msg=='')) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                if (this.responseText === "FALSE") {
+                    alert("No manda mensaje");
+                } else {
+                    deleteChats();
+                    createChats(chatGlobal);
+                }
+            }
+        }
+        var params = "currentUser=" + currentUser + "&user=" + username + "&body=" + msg + "&time=" + date;
+        xhttp.open("POST", "send_msg_json.php", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send(params);
+        return false;
+    } else {
+        return false;
+    }
+}
+
+
+function deleteChats()
+{
+    for(i=0;i<chatGlobal.length;i++)
+    {
+    var borrar=document.getElementById('chat_'+chatGlobal[i]);
+    var tmp=borrar.parentNode;
+    tmp.removeChild(borrar);
+    console.log(chatGlobal[i]);
+    }
+}
