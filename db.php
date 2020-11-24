@@ -205,7 +205,18 @@ function check_read($current_user, $user){
 		return TRUE;
 }
 
-
+function exist_user($user)
+{
+	$res = load_config(dirname(__FILE__)."/configuration.xml", dirname(__FILE__)."/configuration.xsd");
+	$db = new PDO($res[0], $res[1], $res[2]);
+	$ins = "SELECT `users`.`code` FROM `users`
+			WHERE `users`.`username` LIKE '$user'";
+	$resul = $db->query($ins);
+	if($resul->rowCount() > 0)
+		return FALSE;
+	else	
+		return TRUE;
+}
 
 
  /*$stmt = $pdo->query("SELECT * FROM users");
