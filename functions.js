@@ -3,6 +3,7 @@
 var userGlobal;
 var intervalConversation;
 var intervalReadArray = [];
+var intervalChats;
 //variable para guardar los chats
 var chatGlobal=[];
 //Petición para el loggin
@@ -100,7 +101,7 @@ function cargarPaginaPrincipal(user) {
     principal.appendChild(chat);
     principal.appendChild(contenedor_conver);
     document.body.appendChild(principal);
-    cargarChats(user);
+    intervalChats = setInterval(cargarChats, 1500, user);
     //Peticion para los chats
 }
 
@@ -113,6 +114,7 @@ function cargarChats(user) {
                 alert("Something went wrong");
             } else {
                 //alert('va bien');
+                deleteChats();
                 createChats(JSON.parse(this.responseText));
             }
         }
@@ -178,7 +180,7 @@ function onClick() {
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             if (this.responseText === "FALSE") {
-                alert("No funciona");
+                console.log("No funciona");
             } else {
                 //metodo para sacar el div con los chats
                 cargarConversacion(JSON.parse(this.responseText));
