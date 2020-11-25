@@ -50,14 +50,7 @@ function get_chats($username){
 	$arrayUsername = array();
 	if($resul->rowCount() > 0){
 		while($row = $resul->fetch())
-			//print_r($row); 
 			array_push($arrayCode, $row['username']);
-		/*foreach($arrayCode as $code){
-			$tmp = get_username($code);
-			if($tmp != FALSE)
-				array_push($arrayUsername, $tmp);
-			}
-		*/
 	}
 	return $arrayCode;
 }
@@ -186,8 +179,6 @@ function send_message($current_user, $user,$body, $time){
 	else
 		return FALSE;
 	
-	//$ins2 = "INSERT INTO `sent_to`(`code_sent`, `body`, `id_dest_user`, `ream`) VALUES
-	//	SELECT id_msg FROM message WHERE body LIKE 'Lorem ipsum dolor sit amet' and origin_user_id LIKE 2;	(null,'$body', '$code_current_user', '$time')";
 }
 
 function check_read($current_user, $user){
@@ -239,22 +230,9 @@ function sing_up($username, $name,$surname, $email, $address , $password){
 		$db->rollBack();
 		return FALSE;
 	}
-
 }
 
- /*$stmt = $pdo->query("SELECT * FROM users");
-while ($row = $stmt->fetch()) {
-    echo $row['name']."<br />\n";
-}*/
-
-
-//Select para sacar elos usuarios destino de cada usuario
-/*SELECT `users`.`username`, `sent_to`.`id_dest_user` from `users` 
-	INNER JOIN `message` on `users`.`code` = `message`.`origin_user_id`
-    INNER JOIN `sent_to` on `sent_to`.`id_msg` = `message`.`id_msg`
-    where `username` like 'AdrianR'
-	group by `sent_to`.`id_dest_user`;
-*/
+ 
 
 
 
