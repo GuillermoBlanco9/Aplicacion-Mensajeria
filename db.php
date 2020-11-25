@@ -219,23 +219,20 @@ function sing_up($username, $name,$surname, $email, $address , $password){
 	$password=password_hash($password, PASSWORD_BCRYPT);
 	$res = load_config(dirname(__FILE__)."/configuration.xml", dirname(__FILE__)."/configuration.xsd");
 	$db = new PDO($res[0], $res[1], $res[2]);
-	$ins = "SELECT `users`.`code` FROM `users`
-			WHERE `users`.`username` LIKE '$username'";
-	$resul2 = $db->query($ins);
-	if($resul2->rowCount() > 0)
-	{
+	if(!exist_user($username))
 		return FALSE;
-	}
 	else{
 		$ins2 = "INSERT INTO `users`(`code`, `name`, `surname`, `email`, `password`, `address`,`username` ) VALUES
 				(null,'$name', '$surname', '$email', '$password', '$address' ,'$username')";
 		$resul = $db->query($ins2);
-		if(!$resul){
+		if(!$resul)
+		{
 			print_r($db->errorInfo());
 			$db->rollBack();
 			return FALSE;
 		}
-		else{
+		else
+		{
 			return TRUE;
 		}
 	}
