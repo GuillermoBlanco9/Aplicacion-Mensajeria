@@ -217,9 +217,6 @@ function exist_user($user)
 
 function sing_up($username, $name,$surname, $email, $address , $password){
 	$password=password_hash($password, PASSWORD_BCRYPT);
-
-	echo $password;
-
 	$res = load_config(dirname(__FILE__)."/configuration.xml", dirname(__FILE__)."/configuration.xsd");
 	$db = new PDO($res[0], $res[1], $res[2]);
 	$ins = "INSERT INTO `users`(`code`, `name`, `surname`, `email`, `password`, `address`,`username` ) VALUES
@@ -229,6 +226,9 @@ function sing_up($username, $name,$surname, $email, $address , $password){
 		print_r($db->errorInfo());
 		$db->rollBack();
 		return FALSE;
+	}
+	else{
+		return TRUE;
 	}
 }
 
