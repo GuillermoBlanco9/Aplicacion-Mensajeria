@@ -37,27 +37,29 @@ function check_user($name, $password){
 }
 
 function get_chats($username){
+	$code_user = get_code($username);
 	$res = load_config(dirname(__FILE__)."/configuration.xml", dirname(__FILE__)."/configuration.xsd");
 	$db = new PDO($res[0], $res[1], $res[2]);
 	$ins = "SELECT `users`.`username`, `sent_to`.`id_dest_user` from `users` 
 				INNER JOIN `message` on `users`.`code` = `message`.`origin_user_id`
-    			INNER JOIN `sent_to` on `sent_to`.`id_msg` = `message`.`id_msg`
-    			where `username` like '$username'
-				group by `sent_to`.`id_dest_user`";
+				INNER JOIN `sent_to` on `sent_to`.`id_msg` = `message`.`id_msg`
+				where `sent_to`.`id_dest_user` like '$code_user'
+				group by `username`";
 	$resul = $db->query($ins);
 	$arrayCode = array();
 	$arrayUsername = array();
 	if($resul->rowCount() > 0){
 		while($row = $resul->fetch())
-			array_push($arrayCode, $row['id_dest_user']);
-		foreach($arrayCode as $code){
+			//print_r($row); 
+			array_push($arrayCode, $row['username']);
+		/*foreach($arrayCode as $code){
 			$tmp = get_username($code);
 			if($tmp != FALSE)
 				array_push($arrayUsername, $tmp);
 			}
-		
+		*/
 	}
-	return $arrayUsername;
+	return $arrayCode;
 }
 
 function get_username($code){
