@@ -34,7 +34,7 @@ function sing_up() {
             if (this.responseText === "FALSE") {
                 alert("Username already exists");
             } else {
-                alert("User profile created correctly");
+                alert("todobn")//cargarPaginaPrincipal(username)
             }
         }
     }
@@ -43,8 +43,7 @@ function sing_up() {
     var surname = document.getElementById("surname").value;
     var email = document.getElementById("email").value;
     var address = document.getElementById("address").value;
-    var password = document.getElementById("password_signin").value;
-    console.log(password);
+    var password = document.getElementById("password_signin").value;   
     var params = "username=" + username + "&name=" + name + "&surname=" + surname +
      "&email=" + email + "&address=" + address + "&password=" + password;
     xhttp.open("POST", "sign_up_json.php", true);
