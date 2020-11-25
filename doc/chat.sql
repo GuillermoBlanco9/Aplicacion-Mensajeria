@@ -16,11 +16,12 @@ create table if not exists `users`
 
 
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`code`);
+  ADD PRIMARY KEY (`code`),
+  ADD UNIQUE KEY `USER_NAME` (`username`);
 
 ALTER TABLE `users`
   MODIFY `code` int(10) NOT NULL AUTO_INCREMENT;
-  ADD UNIQUE KEY `USER_NAME` (`username`);
+ 
 
 -- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
