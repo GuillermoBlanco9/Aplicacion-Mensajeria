@@ -26,6 +26,32 @@ function login() {
     return false;
 }
 
+function sing_up() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            if (this.responseText === "FALSE") {
+                alert("Username already exists");
+            } else {
+                alert("User profile created correctly");
+            }
+        }
+    }
+    var username = document.getElementById("username").value;
+    var name = document.getElementById("name").value;
+    var surname = document.getElementById("surname").value;
+    var email = document.getElementById("email").value;
+    var address = document.getElementById("address").value;
+    var password = document.getElementById("password").value;
+    
+    var params = "username=" + username + "&name=" + name + "&surname=" + surname +
+     "&email=" + email + "&address=" + address + "&password=" + password;
+    xhttp.open("POST", "sign_up_json.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send(params);
+    return false;
+}
+
 //Crea los elementos de la página principal
 function cargarPaginaPrincipal(user) {
     //Borrado de el form
