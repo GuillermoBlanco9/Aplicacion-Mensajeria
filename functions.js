@@ -43,8 +43,8 @@ function sing_up() {
     var surname = document.getElementById("surname").value;
     var email = document.getElementById("email").value;
     var address = document.getElementById("address").value;
-    var password = document.getElementById("password").value;
-    
+    var password = document.getElementById("password_signin").value;
+    console.log(password);
     var params = "username=" + username + "&name=" + name + "&surname=" + surname +
      "&email=" + email + "&address=" + address + "&password=" + password;
     xhttp.open("POST", "sign_up_json.php", true);
@@ -57,6 +57,7 @@ function sing_up() {
 function cargarPaginaPrincipal(user) {
     //Borrado de el form
     document.body.removeChild(document.getElementById("form"));
+    document.body.removeChild(document.getElementById("sing_up"));
     //contenedor principal
     var principal = document.createElement('div');
     principal.id = "contenedor-principal_id";
