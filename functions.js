@@ -1,11 +1,14 @@
 //Variable usada para guardar el nombre de el usuario al que queremos
 //mandar un mensaje
 var userGlobal;
+var currentUser;
 var intervalConversation;
 var intervalReadArray = [];
 var intervalChats;
+var newChat = 0;
+var newChatUser = '';
 //variable para guardar los chats
-var chatGlobal=[];
+var chatGlobal = [];
 //Petición para el loggin
 function login() {
     var xhttp = new XMLHttpRequest();
@@ -14,6 +17,7 @@ function login() {
             if (this.responseText === "FALSE") {
                 alert("Check user and password");
             } else {
+                currentUser = user;
                 cargarPaginaPrincipal(user);
             }
         }
@@ -34,7 +38,7 @@ function sing_up() {
             if (this.responseText === "FALSE") {
                 alert("Username already exists");
             } else {
-                alert("todobn")//cargarPaginaPrincipal(username)
+                alert("todobn") //cargarPaginaPrincipal(username)
             }
         }
     }
@@ -43,9 +47,9 @@ function sing_up() {
     var surname = document.getElementById("surname").value;
     var email = document.getElementById("email").value;
     var address = document.getElementById("address").value;
-    var password = document.getElementById("password_signin").value;   
+    var password = document.getElementById("password_signin").value;
     var params = "username=" + username + "&name=" + name + "&surname=" + surname +
-     "&email=" + email + "&address=" + address + "&password=" + password;
+        "&email=" + email + "&address=" + address + "&password=" + password;
     xhttp.open("POST", "sign_up_json.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(params);
@@ -72,12 +76,10 @@ function cargarPaginaPrincipal(user) {
     h3.innerHTML = 'CHATS OF ' + user;
     chat.appendChild(h3);
     //boton para agregar
-    
-    var agregar=document.createElement('button');
-    agregar.addEventListener('click',addFriends);
-    agregar.innerHTML='<b> Add friends +</b>'
+    var agregar = document.createElement('button');
+    agregar.addEventListener('click', addFriends);
+    agregar.innerHTML = '<b> Add friends +</b>'
     chat.appendChild(agregar);
-    
     //contenedor de la conversacion y la barra para escribir
     var contenedor_conver = document.createElement('div');
     contenedor_conver.id = "contenedor_conver_id";
@@ -87,12 +89,12 @@ function cargarPaginaPrincipal(user) {
     conver.id = 'conver_id'
     conver.className = 'conver';
     //Form para enviar mensajes
-    var form=document.createElement('div');
-    form.id='form_message';
+    var form = document.createElement('div');
+    form.id = 'form_message';
     var input = document.createElement('input');
     input.id = 'input_msg';
     var button = document.createElement('button');
-    button.addEventListener('click',sendMessage);
+    button.addEventListener('click', sendMessage);
     //colgar en el dom
     form.appendChild(input);
     form.appendChild(button);
@@ -128,8 +130,8 @@ function cargarChats(user) {
 //Esta función carga la lista con los chats existentes
 //recibe como parámetro los nombres de los chats;
 function createChats(chats) {
-    chatGlobal=chats;
-    console.log(chatGlobal);
+    chatGlobal = chats;
+    //console.log(chatGlobal);
     for (var i = 0; i < chats.length; i++) {
         var ele = document.createElement('div');
         ele.id = 'chat_' + chats[i];
@@ -137,26 +139,24 @@ function createChats(chats) {
         ele.addEventListener("click", onClick)
         var p = document.createElement('p');
         p.innerHTML = chats[i];
-        p.style.margin='10px';
+        p.style.margin = '10px';
         ele.appendChild(p);
         document.getElementById('chat_id').appendChild(ele);
         //Comprobar leidos y no leidos;
         //checkRead(chats[i]);
         intervalReadArray.push(setInterval(checkRead, 1500, chats[i]));
     }
-    
+    console.log(intervalReadArray);
 }
 
 //Función que comprueba los leidos
-function checkRead(chat){
-    var tituloInnerHTML = document.getElementById("titulo_").innerHTML;
-    var currentUser = tituloInnerHTML.substring(9, tituloInnerHTML.length);
+function checkRead(chat) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             if (this.responseText === "FALSE") {
                 document.getElementById('chat_' + chat).style.color = 'red';
-            } 
+            }
         }
     }
     var params = "currentUser=" + currentUser + "&user=" + chat;
@@ -170,9 +170,7 @@ function checkRead(chat){
 function onClick() {
     clearInterval(intervalConversation);
     var user = this.id.substring(5, this.id.length);
-    userGlobal=user;
-    var tituloInnerHTML = document.getElementById("titulo_").innerHTML;
-    var currentUser = tituloInnerHTML.substring(9, tituloInnerHTML.length);
+    userGlobal = user;
     updateRead(currentUser);
     //Poner en negro si hay mensajes  leidos
     document.getElementById(this.id).style.color = '#FFFFFF';
@@ -180,8 +178,10 @@ function onClick() {
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             if (this.responseText === "FALSE") {
-                console.log("No funciona");
+                //console.log("No funciona");
             } else {
+                newChat = 0;
+                newChatUser = 0;
                 //metodo para sacar el div con los chats
                 cargarConversacion(JSON.parse(this.responseText));
                 intervalConversation = setInterval(updateConver, 1000);
@@ -195,7 +195,7 @@ function onClick() {
     return false;
 }
 
-function updateRead(currentUser){
+function updateRead(currentUser) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -233,19 +233,17 @@ function cargarConversacion(arrayMsg) {
         document.getElementById('conver_id').style.overflow = 'scroll';
         document.getElementById('conver_id').style.overflowX = 'hidden';
         var objDiv = document.getElementById("conver_id");
-        objDiv.scrollTop = objDiv.scrollHeight; 
+        objDiv.scrollTop = objDiv.scrollHeight;
     }
-    console.log(arrayMsg);
+    //console.log(arrayMsg);
 }
 
 
 //Envía un mensaje cuando se hace click en el botón de enviar
 function sendMessage() {
     var msg = document.getElementById('input_msg').value;
-    var tituloInnerHTML = document.getElementById('titulo_').innerHTML;
-    var currentUser = tituloInnerHTML.substring(9, tituloInnerHTML.length);
-    var date=new Date().toISOString().slice(0, 19).replace('T', ' ');
-    if (!(msg=='')) {
+    var date = new Date().toISOString().slice(0, 19).replace('T', ' ');
+    if (!(msg == '')) {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -269,9 +267,7 @@ function sendMessage() {
 
 
 //Actualiza la conversacion. Se le llama cuando se envía un mensaje.
-function updateConver(){
-    var tituloInnerHTML = document.getElementById("titulo_").innerHTML;
-    var currentUser = tituloInnerHTML.substring(9, tituloInnerHTML.length);
+function updateConver() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -290,39 +286,67 @@ function updateConver(){
     return false;
 }
 
-function addFriends()
-{
-    var username=window.prompt("Friend Username");
-    
-    
+function addFriends() {
+    var username = window.prompt("Friend Username");
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            if (this.responseText === "FALSE") {
+                alert("No existe el usuario");
+            } else {
+                clearInterval(intervalChats);
+                console.log(intervalReadArray);
+                for(var i = 0; i < intervalReadArray.length; i++)
+                    clearInterval(intervalReadArray[i]);
+                intervalReadArray = [];
+                console.log(intervalReadArray);
+                sendFirstMessage(username, currentUser);
+                sendFirstMessage(currentUser,username);
+                deleteChats();
+                chatGlobal.push(username);
+                newChat = 1;
+                newChatUser = username;
+                //intervalChats = setInterval(cargarChats, 1500, currentUser);
+            }
+        }
+    }
+    var params = "User=" + username;
+    xhttp.open("POST", "exist_user.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send(params);
+    return false;
+}
+
+
+function deleteChats() {
+    for (i = 0; i < chatGlobal.length; i++) {
+        var borrar = document.getElementById('chat_' + chatGlobal[i]);
+        var tmp = borrar.parentNode;
+        tmp.removeChild(borrar);
+        //(chatGlobal[i]);
+    }
+}
+
+function sendFirstMessage(user, currentUserNew) {
+    var msg = 'primer mensaje de ' + currentUserNew  + ' a ' + user;
+    var date = new Date().toISOString().slice(0, 19).replace('T', ' ');
+    if (!(msg == '')) {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 if (this.responseText === "FALSE") {
-                    alert("No existe el usuario");
+                    console.log("primer mensaje no enviado");
                 } else {
-                    deleteChats();
-                    chatGlobal.push(''+username);
-                    createChats(chatGlobal);
+                    console.log("primer mensaje enviado");
                 }
             }
         }
-        var params = "User=" + username;
-        xhttp.open("POST", "exist_user.php", true);
+        var params = "currentUser=" + currentUserNew + "&user=" + user + "&body=" + msg + "&time=" + date;
+        xhttp.open("POST", "send_msg_json.php", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send(params);
         return false;
-}
-
-
-function deleteChats()
-{
-    for(i=0;i<chatGlobal.length;i++)
-    {
-    var borrar=document.getElementById('chat_'+chatGlobal[i]);
-    var tmp=borrar.parentNode;
-    tmp.removeChild(borrar);
-    console.log(chatGlobal[i]);
+    } else {
+        return false;
     }
 }
-
