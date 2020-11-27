@@ -72,3 +72,12 @@ div.conver #form_message{
     border-bottom: 0.5px solid #FFFFFF;
     cursor: pointer;
 }
+
+.sign_up
+{
+   display: none;
+}
+form
+{
+    display: none;
+}

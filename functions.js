@@ -9,6 +9,12 @@ var newChat = 0;
 var newChatUser = '';
 //variable para guardar los chats
 var chatGlobal = [];
+//window.onload
+function iniciar()
+{
+    var from=document.getElementById("sing_up");
+    from.style.display='none';
+}
 //Petición para el loggin
 function login() {
     var xhttp = new XMLHttpRequest();
@@ -38,7 +44,11 @@ function sing_up() {
             if (this.responseText === "FALSE") {
                 alert("Username already exists");
             } else {
-                alert("todobn") //cargarPaginaPrincipal(username)
+                if(username==='' || password==='')
+                    alert('Fill Username & password');
+                else
+                    document.body.removeChild(document.getElementById("sing_up"));
+                
             }
         }
     }
@@ -146,7 +156,7 @@ function createChats(chats) {
         //checkRead(chats[i]);
         intervalReadArray.push(setInterval(checkRead, 1500, chats[i]));
     }
-    console.log(intervalReadArray);
+    
 }
 
 //Función que comprueba los leidos
@@ -349,4 +359,10 @@ function sendFirstMessage(user, currentUserNew) {
     } else {
         return false;
     }
+}
+
+//boton para mostrar el sign_up
+function mostrarBoton()
+{
+
 }
