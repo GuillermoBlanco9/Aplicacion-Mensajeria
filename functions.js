@@ -86,6 +86,10 @@ function cargarPaginaPrincipal(user) {
     agregar.addEventListener('click', addFriends);
     agregar.innerHTML = '<b> Add friends +</b>'
     chat.appendChild(agregar);
+    var difusion = document.createElement('button');
+    difusion.addEventListener('click', difusionList);
+    difusion.innerHTML = '<b> Difusion Message +</b>'
+    chat.appendChild(difusion);
     //contenedor de la conversacion y la barra para escribir
     var contenedor_conver = document.createElement('div');
     contenedor_conver.id = "contenedor_conver_id";
@@ -328,15 +332,8 @@ function addFriends() {
 
 function deleteChats() {
     var ele = document.getElementById('chat_id');
-    while(ele.children.length > 2)
+    while(ele.children.length > 3)
         ele.removeChild(ele.lastChild);
-    /*
-    for (i = 0; i < chatGlobal.length; i++) {
-        var borrar = document.getElementById('chat_' + chatGlobal[i]);
-        var tmp = borrar.parentNode;
-        tmp.removeChild(borrar);
-        //(chatGlobal[i]);
-    }*/
 }
 
 function sendFirstMessage(user, currentUserNew) {
