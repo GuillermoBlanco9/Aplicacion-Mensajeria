@@ -88,7 +88,7 @@ function cargarPaginaPrincipal(user) {
     agregar.innerHTML = '<b> Add friends +</b>'
     chat.appendChild(agregar);
     var difusion = document.createElement('button');
-    difusion.addEventListener('click', difusionList);
+    //difusion.addEventListener('click', difusionList);
     difusion.innerHTML = '<b> Difusion Message +</b>'
     chat.appendChild(difusion);
     //contenedor de la conversacion y la barra para escribir
