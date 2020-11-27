@@ -73,11 +73,12 @@ div.conver #form_message{
     cursor: pointer;
 }
 
-.sign_up
+.no-mostrar
 {
-   display: none;
-}
-form
-{
+    display: flex;
     display: none;
+    
+    flex-direction: column;
 }
+
+

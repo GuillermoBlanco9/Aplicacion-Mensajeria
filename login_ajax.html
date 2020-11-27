@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="css/reset.css">
 	<link rel="stylesheet" href="css/styles.css">
-	<script src="functions.js">window.onload=iniciar;</script>
+	<script src="functions.js"></script>
 	
 
 </head>
@@ -18,20 +18,22 @@
 		<input type="submit">
 	</form>
 
-	<form id="sing_up" onsubmit="return sing_up();">
-		<label>username</label>
+	<button id="boton" onclick="mostrarForm()">Sign up</button>
+
+	<form id="sing_up" class="no-mostrar" onsubmit="return sing_up();">
+		<label>username<br></label>
 		<input id="username">
-		<label>name</label>
+		<label>name<br></label>
 		<input id="name">
-		<label>surname</label>
+		<label>surname<br></label>
 		<input id="surname">
-		<label>email</label>
+		<label>email<br></label>
 		<input id="email">
-		<label>address</label>
+		<label>address<br></label>
 		<input id="address">
-		<label>password</label>
+		<label>password<br></label>
 		<input id="password_signin">
-		<label>submit</label>
+		<label>submit<br></label>
 		<input type="submit">
 	</form>
 
