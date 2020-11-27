@@ -200,15 +200,16 @@ function check_read($current_user, $user){
 
 function exist_user($user)
 {
+	$code_user = get_code($user);
 	$res = load_config(dirname(__FILE__)."/configuration.xml", dirname(__FILE__)."/configuration.xsd");
 	$db = new PDO($res[0], $res[1], $res[2]);
 	$ins = "SELECT `users`.`code` FROM `users`
-			WHERE `users`.`username` LIKE '$user'";
+			WHERE `users`.`code` LIKE '$code_user'";
 	$resul = $db->query($ins);
-	if($resul->rowCount() > 0)
-		return FALSE;
+	if($resul->rowCount() === 1)
+		return 'TRUE';
 	else	
-		return TRUE;
+		return 'FALSE';
 }
 
 

@@ -3,7 +3,7 @@
 require 'db.php'; 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {   
     $exist = exist_user($_POST['user']);
-	if($exist===FALSE){ 
+	if($exist==='FALSE'){ 
         echo "FALSE";
         return;
     }else{
