@@ -65,7 +65,8 @@ function sing_up() {
 function cargarPaginaPrincipal(user) {
     //Borrado de el form
     document.body.removeChild(document.getElementById("form"));
-    document.body.removeChild(document.getElementById("sing_up"));
+    if(document.getElementById("sing_up") != null)
+        document.body.removeChild(document.getElementById("sing_up"));
     document.body.removeChild(document.getElementById("boton"));
     //contenedor principal
     var principal = document.createElement('div');
@@ -364,6 +365,7 @@ function sendFirstMessage(user, currentUserNew) {
 
 function mostrarForm()
 {
+    
     var disp=document.getElementById("sing_up");
     disp.style.display='flex';
 }
