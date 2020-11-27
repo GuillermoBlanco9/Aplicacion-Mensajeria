@@ -39,7 +39,7 @@ function sing_up() {
             if (this.responseText === "FALSE") {
                 alert("Username already exists");
             } else {
-                if(username==='' || password==='')
+                if(username==='' || password==='' || email==='')
                     alert('Fill Username & password');
                 else
                     document.body.removeChild(document.getElementById("sing_up"));
