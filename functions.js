@@ -300,23 +300,25 @@ function addFriends() {
             if (this.responseText === "FALSE") {
                 alert("No existe el usuario");
             } else {
+                console.log('Por aqui');
                 clearInterval(intervalChats);
-                console.log(intervalReadArray);
+                //console.log(intervalReadArray);
                 for(var i = 0; i < intervalReadArray.length; i++)
                     clearInterval(intervalReadArray[i]);
                 intervalReadArray = [];
-                console.log(intervalReadArray);
+                //console.log(intervalReadArray);
                 sendFirstMessage(username, currentUser);
                 sendFirstMessage(currentUser,username);
                 deleteChats();
                 chatGlobal.push(username);
+                console.log(chatGlobal);
                 newChat = 1;
                 newChatUser = username;
-                //intervalChats = setInterval(cargarChats, 1500, currentUser);
+                intervalChats = setInterval(cargarChats, 1500, currentUser);
             }
         }
     }
-    var params = "User=" + username;
+    var params = "user=" + username;
     xhttp.open("POST", "exist_user.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(params);
@@ -325,12 +327,16 @@ function addFriends() {
 
 
 function deleteChats() {
+    var ele = document.getElementById('chat_id');
+    while(ele.children.length > 2)
+        ele.removeChild(ele.lastChild);
+    /*
     for (i = 0; i < chatGlobal.length; i++) {
         var borrar = document.getElementById('chat_' + chatGlobal[i]);
         var tmp = borrar.parentNode;
         tmp.removeChild(borrar);
         //(chatGlobal[i]);
-    }
+    }*/
 }
 
 function sendFirstMessage(user, currentUserNew) {
