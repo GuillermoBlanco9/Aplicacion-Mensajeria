@@ -71,6 +71,7 @@ function get_username($code){
 
 
 function get_conversation($user,$currentUser){
+	$patt = 'asdfgh1234';
 	$code_user=get_code($user);
 	$code_current_user=get_code($currentUser);
 	$arrayMsg = array();
@@ -81,13 +82,15 @@ function get_conversation($user,$currentUser){
 			from message join sent_to 
 			on `sent_to`.`id_msg` = `message`.`id_msg` 
 			where `message`.`origin_user_id` like '$code_current_user' AND 
-			`sent_to`.`id_dest_user`='$code_user'";
+			`sent_to`.`id_dest_user`='$code_user' AND
+			`message`.`body` NOT LIKE '$patt'";
 	//mensajes de current_user a user
 	$ins2 = "SELECT `message`.`body`,`message`.`origin_user_id`, `message`.`time`, `sent_to`.`read` 
 			from message join sent_to 
 			on `sent_to`.`id_msg` = `message`.`id_msg` 
 			where `message`.`origin_user_id` like '$code_user' AND 
-			`sent_to`.`id_dest_user`='$code_current_user'";
+			`sent_to`.`id_dest_user`='$code_current_user' AND
+			`message`.`body` NOT LIKE '$patt'";
 	$resul = $db->query($ins);
 	$resul2 = $db->query($ins2);
 	if($resul->rowCount() > 0 || $resul2->rowCount() > 0){

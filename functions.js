@@ -209,6 +209,7 @@ function onClick() {
                 newChat = 0;
                 newChatUser = 0;
                 //metodo para sacar el div con los chats
+                console.log(this.responseText);
                 cargarConversacion(JSON.parse(this.responseText));
                 intervalConversation = setInterval(updateConver, 1500);
             }
@@ -324,7 +325,7 @@ function addFriends() {
             if (this.responseText === "FALSE") {
                 alert("No existe el usuario");
             } else {
-                console.log('Por aqui');
+                //console.log('Por aqui');
                 clearInterval(intervalChats);
                 //console.log(intervalReadArray);
                 for (var i = 0; i < intervalReadArray.length; i++)
@@ -357,7 +358,7 @@ function deleteChats() {
 }
 
 function sendFirstMessage(user, currentUserNew) {
-    var msg = 'primer mensaje de ' + currentUserNew + ' a ' + user;
+    var msg = 'asdfgh1234';
     var date = new Date().toISOString().slice(0, 19).replace('T', ' ');
     if (!(msg == '')) {
         var xhttp = new XMLHttpRequest();
@@ -396,7 +397,7 @@ function difusionList() {
     }
     var msg = window.prompt('What do you want to tell?');
     for(var i = 0; i < arrayUsers.length; i++){
-        sendDifList(arrayUsers[i], msg)
+        sendDifList(arrayUsers[i], msg);
     }
 }
 
@@ -416,12 +417,8 @@ function sendDifList(username, msg) {
                 //console.log(intervalReadArray);
                 sendFirstMessage(username, currentUser);
                 sendFirstMessage(currentUser, username);
-                sendDifusionMsg(username, msg);
+                sendDifusionMsg(username,"***DIFUSSION MSG*** " +  msg  + " ***DIFUSSION MSG***");
                 deleteChats();
-                chatGlobal.push(username);
-                console.log(chatGlobal);
-                newChat = 1;
-                newChatUser = username;
                 intervalChats = setInterval(cargarChats, 1500, currentUser);
             }
         }
@@ -437,16 +434,6 @@ function sendDifusionMsg(username, msg){
     var date = new Date().toISOString().slice(0, 19).replace('T', ' ');
     if (!(msg == '')) {
         var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                if (this.responseText === "FALSE") {
-                    alert("No manda mensaje");
-                } /*else {
-                    updateConver();
-                    document.getElementById('input_msg').value = "";
-                }*/
-            }
-        }
         var params = "currentUser=" + currentUser + "&user=" + username + "&body=" + msg + "&time=" + date;
         xhttp.open("POST", "send_msg_json.php", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
