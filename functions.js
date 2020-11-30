@@ -387,6 +387,23 @@ function cargarPerfil()
     clearInterval(intervalConversation);
     while (document.getElementById('conver_id').firstChild)
         document.getElementById('conver_id').removeChild(document.getElementById('conver_id').firstChild);
+    
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                if (this.responseText === "FALSE") {
+                    alert("No funciona");
+                } else {
+                    //metodo para sacar el div con los chats
+                    alert("funciona");
+                }
+            }
+        }
+        var params = "username=" + userGlobal;
+        xhttp.open("POST", "get_profile.php", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send(params);
+        return false;
         
 }
 
