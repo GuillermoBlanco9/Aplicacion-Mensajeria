@@ -105,7 +105,7 @@ function cargarPaginaPrincipal(user) {
     divPerf.style.height='100px';
     divPerf.position='fixed';
     divPerf.style.top='0';
-    divPerf.addEventListener('click',cargarPerfil);
+    //divPerf.addEventListener('click',cargarPerfil);
     contenedor_conver.appendChild(divPerf);
     //contenedor para la conversacion
     var conver = document.createElement('div');
@@ -209,7 +209,7 @@ function onClick() {
                 newChat = 0;
                 newChatUser = 0;
                 //metodo para sacar el div con los chats
-                console.log(this.responseText);
+                //console.log(this.responseText);
                 cargarConversacion(JSON.parse(this.responseText));
                 intervalConversation = setInterval(updateConver, 1500);
             }
@@ -332,11 +332,11 @@ function addFriends() {
                     clearInterval(intervalReadArray[i]);
                 intervalReadArray = [];
                 //console.log(intervalReadArray);
-                sendFirstMessage(username, currentUser);
+                //sendFirstMessage(username, currentUser);
                 sendFirstMessage(currentUser, username);
                 deleteChats();
                 chatGlobal.push(username);
-                console.log(chatGlobal);
+                //console.log(chatGlobal);
                 newChat = 1;
                 newChatUser = username;
                 intervalChats = setInterval(cargarChats, 1500, currentUser);
@@ -396,6 +396,7 @@ function difusionList() {
         arrayUsers.push(window.prompt('Destination user name'));
     }
     var msg = window.prompt('What do you want to tell?');
+    console.log(arrayUsers);
     for(var i = 0; i < arrayUsers.length; i++){
         sendDifList(arrayUsers[i], msg);
     }
