@@ -242,7 +242,14 @@ function sing_up($username, $name,$surname, $email, $address , $password){
 	}
 }
 
- 
+ function get_profile($username)
+ {
+	$res = load_config(dirname(__FILE__)."/configuration.xml", dirname(__FILE__)."/configuration.xsd");
+	$db = new PDO($res[0], $res[1], $res[2]);
+	$ins = "INSERT INTO `message`(`id_msg`, `body`, `origin_user_id`, `time`) VALUES
+			(null,'$body', '$code_current_user', '$time')";
+	$resul = $db->query($ins);
+ }
 
 
 
