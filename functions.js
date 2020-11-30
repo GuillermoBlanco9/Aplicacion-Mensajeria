@@ -193,6 +193,8 @@ function checkRead(chat) {
 //Carga la conversación al hacer click en un chat
 function onClick() {
     clearInterval(intervalConversation);
+    while (document.getElementById('conver_id').firstChild)
+    document.getElementById('conver_id').removeChild(document.getElementById('conver_id').firstChild);
     var user = this.id.substring(5, this.id.length);
     userGlobal = user;
     updateRead(currentUser);
@@ -226,7 +228,7 @@ function updateRead(currentUser) {
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             if (this.responseText === "FALSE") {
-                alert("Actualizado");
+                //alert("Actualizado");
             } else {
                 alert("No actualizado");
             }
