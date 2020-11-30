@@ -39,11 +39,11 @@ function sing_up() {
             if (this.responseText === "FALSE") {
                 alert("Username already exists");
             } else {
-                if(username==='' || password==='' || email==='')
+                if (username === '' || password === '' || email === '')
                     alert('Fill Username & password');
                 else
                     document.body.removeChild(document.getElementById("sing_up"));
-                
+
             }
         }
     }
@@ -65,7 +65,7 @@ function sing_up() {
 function cargarPaginaPrincipal(user) {
     //Borrado de el form
     document.body.removeChild(document.getElementById("form"));
-    if(document.getElementById("sing_up") != null)
+    if (document.getElementById("sing_up") != null)
         document.body.removeChild(document.getElementById("sing_up"));
     document.body.removeChild(document.getElementById("boton"));
     //contenedor principal
@@ -85,10 +85,11 @@ function cargarPaginaPrincipal(user) {
     //boton para agregar
     var agregar = document.createElement('button');
     agregar.addEventListener('click', addFriends);
-    agregar.innerHTML = '<b> Add friends +</b>'
+    agregar.innerHTML = '<b> Add friends +</b>';
     chat.appendChild(agregar);
+    //botón para la difusion
     var difusion = document.createElement('button');
-    //difusion.addEventListener('click', difusionList);
+    difusion.addEventListener('click', difusionList);
     difusion.innerHTML = '<b> Difusion Message +</b>'
     chat.appendChild(difusion);
     //contenedor de la conversacion y la barra para escribir
@@ -114,7 +115,7 @@ function cargarPaginaPrincipal(user) {
     principal.appendChild(chat);
     principal.appendChild(contenedor_conver);
     document.body.appendChild(principal);
-    intervalChats = setInterval(cargarChats, 1500, user);
+    intervalChats = setInterval(cargarChats, 2500, user);
     //Peticion para los chats
 }
 
@@ -141,6 +142,7 @@ function cargarChats(user) {
 //Esta función carga la lista con los chats existentes
 //recibe como parámetro los nombres de los chats;
 function createChats(chats) {
+    chatGlobal = [];
     chatGlobal = chats;
     //console.log(chatGlobal);
     for (var i = 0; i < chats.length; i++) {
@@ -155,9 +157,9 @@ function createChats(chats) {
         document.getElementById('chat_id').appendChild(ele);
         //Comprobar leidos y no leidos;
         //checkRead(chats[i]);
-        intervalReadArray.push(setInterval(checkRead, 1500, chats[i]));
+        intervalReadArray.push(setInterval(checkRead, 2500, chats[i]));
     }
-    
+
 }
 
 //Función que comprueba los leidos
@@ -195,7 +197,7 @@ function onClick() {
                 newChatUser = 0;
                 //metodo para sacar el div con los chats
                 cargarConversacion(JSON.parse(this.responseText));
-                intervalConversation = setInterval(updateConver, 1000);
+                intervalConversation = setInterval(updateConver, 1500);
             }
         }
     }
@@ -308,12 +310,12 @@ function addFriends() {
                 console.log('Por aqui');
                 clearInterval(intervalChats);
                 //console.log(intervalReadArray);
-                for(var i = 0; i < intervalReadArray.length; i++)
+                for (var i = 0; i < intervalReadArray.length; i++)
                     clearInterval(intervalReadArray[i]);
                 intervalReadArray = [];
                 //console.log(intervalReadArray);
                 sendFirstMessage(username, currentUser);
-                sendFirstMessage(currentUser,username);
+                sendFirstMessage(currentUser, username);
                 deleteChats();
                 chatGlobal.push(username);
                 console.log(chatGlobal);
@@ -333,12 +335,12 @@ function addFriends() {
 
 function deleteChats() {
     var ele = document.getElementById('chat_id');
-    while(ele.children.length > 3)
+    while (ele.children.length > 3)
         ele.removeChild(ele.lastChild);
 }
 
 function sendFirstMessage(user, currentUserNew) {
-    var msg = 'primer mensaje de ' + currentUserNew  + ' a ' + user;
+    var msg = 'primer mensaje de ' + currentUserNew + ' a ' + user;
     var date = new Date().toISOString().slice(0, 19).replace('T', ' ');
     if (!(msg == '')) {
         var xhttp = new XMLHttpRequest();
@@ -363,9 +365,77 @@ function sendFirstMessage(user, currentUserNew) {
 
 //boton para mostrar el sign_up
 
-function mostrarForm()
-{
-    
-    var disp=document.getElementById("sing_up");
-    disp.style.display='flex';
+function mostrarForm() {
+    var disp = document.getElementById("sing_up");
+    disp.style.display = 'flex';
+}
+
+//Función para la lista de difusión;
+function difusionList() {
+    var n = window.prompt("how many people do you want to write?");
+    var arrayUsers = [];
+    for(var i = 0; i < n; i++){
+        arrayUsers.push(window.prompt('Destination user name'));
+    }
+    var msg = window.prompt('What do you want to tell?');
+    for(var i = 0; i < arrayUsers.length; i++){
+        sendDifList(arrayUsers[i], msg)
+    }
+}
+
+function sendDifList(username, msg) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            if (this.responseText === "FALSE") {
+                alert("Message to " + username + "won't be send beacuse the user doesn't exists");
+            } else {
+                console.log('Por aqui');
+                clearInterval(intervalChats);
+                //console.log(intervalReadArray);
+                for (var i = 0; i < intervalReadArray.length; i++)
+                    clearInterval(intervalReadArray[i]);
+                intervalReadArray = [];
+                //console.log(intervalReadArray);
+                sendFirstMessage(username, currentUser);
+                sendFirstMessage(currentUser, username);
+                sendDifusionMsg(username, msg);
+                deleteChats();
+                chatGlobal.push(username);
+                console.log(chatGlobal);
+                newChat = 1;
+                newChatUser = username;
+                intervalChats = setInterval(cargarChats, 1500, currentUser);
+            }
+        }
+    }
+    var params = "user=" + username;
+    xhttp.open("POST", "exist_user.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send(params);
+    return false;
+}
+
+function sendDifusionMsg(username, msg){
+    var date = new Date().toISOString().slice(0, 19).replace('T', ' ');
+    if (!(msg == '')) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                if (this.responseText === "FALSE") {
+                    alert("No manda mensaje");
+                } /*else {
+                    updateConver();
+                    document.getElementById('input_msg').value = "";
+                }*/
+            }
+        }
+        var params = "currentUser=" + currentUser + "&user=" + username + "&body=" + msg + "&time=" + date;
+        xhttp.open("POST", "send_msg_json.php", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send(params);
+        return false;
+    } else {
+        return false;
+    }
 }

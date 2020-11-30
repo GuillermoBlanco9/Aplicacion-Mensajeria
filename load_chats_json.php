@@ -1,5 +1,5 @@
 <?php 
-require 'db.php'; 
+require_once 'db.php'; 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {   
     $conver = get_conversation($_POST['user'], $_POST['currentUser']);
 	if($conver===FALSE){ 

@@ -1,6 +1,6 @@
 
 <?php 
-require 'db.php'; 
+require_once 'db.php'; 
 if ($_SERVER["REQUEST_METHOD"] == "POST") { 
     $exist = sing_up($_POST['username'], $_POST['name'], $_POST['surname']
      ,$_POST['email'], $_POST['address'] ,$_POST['password']);
