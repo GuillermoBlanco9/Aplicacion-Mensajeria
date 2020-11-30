@@ -96,6 +96,17 @@ function cargarPaginaPrincipal(user) {
     var contenedor_conver = document.createElement('div');
     contenedor_conver.id = "contenedor_conver_id";
     contenedor_conver.className = 'contenedor_conver';
+    //contenedor para el titulo
+    var divPerf=document.createElement('div');
+    divPerf.style.width='100%';
+    divPerf.id='divPerf';
+    divPerf.style.fontSize='4em'
+    divPerf.style.backgroundColor='#b9ffb0';
+    divPerf.style.height='100px';
+    divPerf.position='fixed';
+    divPerf.style.top='0';
+    divPerf.addEventListener('click',cargarPerfil);
+    contenedor_conver.appendChild(divPerf);
     //contenedor para la conversacion
     var conver = document.createElement('div');
     conver.id = 'conver_id'
@@ -185,6 +196,8 @@ function onClick() {
     var user = this.id.substring(5, this.id.length);
     userGlobal = user;
     updateRead(currentUser);
+    //poner titulo de conver 
+    document.getElementById('divPerf').innerHTML=''+userGlobal;
     //Poner en negro si hay mensajes  leidos
     document.getElementById(this.id).style.color = '#FFFFFF';
     var xhttp = new XMLHttpRequest();
@@ -229,6 +242,10 @@ function updateRead(currentUser) {
 
 //Recibe los mensajes por parámetro y los pone en el dom
 function cargarConversacion(arrayMsg) {
+
+    
+
+
     for (var i = 0; i < arrayMsg.length; i++) {
         var tmp = arrayMsg[i].time;
         arrayMsg[i].time = new Date(tmp);
