@@ -209,8 +209,8 @@ function exist_user($user)
 	$ins = "SELECT `users`.`code` FROM `users`
 			WHERE `users`.`code` LIKE '$code_user'";
 	$resul = $db->query($ins);
-	if($resul->rowCount() === 1)
-		return 'TRUE';
+	if($resul->rowCount() > 0)
+		return $resul->fetch();
 	else	
 		return 'FALSE';
 }
@@ -246,9 +246,17 @@ function sing_up($username, $name,$surname, $email, $address , $password){
  {
 	$res = load_config(dirname(__FILE__)."/configuration.xml", dirname(__FILE__)."/configuration.xsd");
 	$db = new PDO($res[0], $res[1], $res[2]);
-	$ins = "INSERT INTO `message`(`id_msg`, `body`, `origin_user_id`, `time`) VALUES
-			(null,'$body', '$code_current_user', '$time')";
+	$ins = "SELECT `name`, `surname`, `email`, `address`,`username` FROM `users`
+			 WHERE `username` LIKE '$username'";
 	$resul = $db->query($ins);
+	$arrayDatos = array();
+	if($resul->rowCount() === 1)
+	{
+		$arrayDatos = $resul->fetch();
+		return $arrayDatos;
+	}
+	else
+		return false;
  }
 
 

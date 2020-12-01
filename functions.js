@@ -389,16 +389,17 @@ function cargarPerfil()
     clearInterval(intervalConversation);
     while (document.getElementById('conver_id').firstChild)
         document.getElementById('conver_id').removeChild(document.getElementById('conver_id').firstChild);
-    console.log('hola');
-    /*
+    
+    
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 if (this.responseText === "FALSE") {
-                    alert("No funciona");
+                    alert("No existe este usuario");
                 } else {
                     //metodo para sacar el div con los chats
-                    alert("funciona");
+                    
+                    mostrarPerfil(JSON.parse(this.responseText));
                 }
             }
         }
@@ -407,7 +408,19 @@ function cargarPerfil()
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send(params);
         return false;
-        */
+        
+}
+
+function mostrarPerfil(user)
+{
+    console.log(user);
+    
+        var p = document.createElement('p');
+        p.innerHTML = 'Name: '+user.name+'<br><br>Surname: '+user.surname+'<br><br>Email: '+user.email+
+        '<br><br>address: '+user.address+'<br><br>Username: '+user.username;
+        document.getElementById('conver_id').appendChild(p);
+    
+
 }
 
 

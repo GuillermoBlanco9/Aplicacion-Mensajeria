@@ -4,9 +4,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $exist = get_profile($_POST['username']);
 	if($exist===FALSE){ 
         echo "FALSE";
-        return;
     }else{
-        echo "TRUE";   
-        return;
+        $json = json_encode($exist);   
+        echo $json;
+        return; 
     }  	
 } 
