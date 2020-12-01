@@ -105,8 +105,8 @@ function cargarPaginaPrincipal(user) {
     divPerf.style.height='100px';
     divPerf.position='fixed';
     divPerf.style.top='0';
-    //divPerf.addEventListener('click',cargarPerfil);
     contenedor_conver.appendChild(divPerf);
+    divPerf.addEventListener('click', cargarPerfil);
     //contenedor para la conversacion
     var conver = document.createElement('div');
     conver.id = 'conver_id'
@@ -389,7 +389,8 @@ function cargarPerfil()
     clearInterval(intervalConversation);
     while (document.getElementById('conver_id').firstChild)
         document.getElementById('conver_id').removeChild(document.getElementById('conver_id').firstChild);
-    
+    console.log('hola');
+    /*
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -406,7 +407,7 @@ function cargarPerfil()
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send(params);
         return false;
-        
+        */
 }
 
 
