@@ -126,7 +126,8 @@ function cargarPaginaPrincipal(user) {
     principal.appendChild(chat);
     principal.appendChild(contenedor_conver);
     document.body.appendChild(principal);
-    intervalChats = setInterval(cargarChats, 2500, user);
+    //intervalChats = setInterval(cargarChats, 2500, user);
+    cargarChats(user);
     //Peticion para los chats
 }
 
@@ -167,8 +168,8 @@ function createChats(chats) {
         ele.appendChild(p);
         document.getElementById('chat_id').appendChild(ele);
         //Comprobar leidos y no leidos;
-        //checkRead(chats[i]);
-        intervalReadArray.push(setInterval(checkRead, 2500, chats[i]));
+        checkRead(chats[i]);
+        //intervalReadArray.push(setInterval(checkRead, 2500, chats[i]));
     }
 
 }
@@ -329,9 +330,9 @@ function addFriends() {
                 //console.log('Por aqui');
                 clearInterval(intervalChats);
                 //console.log(intervalReadArray);
-                for (var i = 0; i < intervalReadArray.length; i++)
-                    clearInterval(intervalReadArray[i]);
-                intervalReadArray = [];
+                //for (var i = 0; i < intervalReadArray.length; i++)
+                    //clearInterval(intervalReadArray[i]);
+                //intervalReadArray = [];
                 //console.log(intervalReadArray);
                 sendFirstMessage(username, currentUser);
                 sendFirstMessage(currentUser, username);
