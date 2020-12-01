@@ -328,7 +328,7 @@ function addFriends() {
                 alert("No existe el usuario");
             } else {
                 //console.log('Por aqui');
-                clearInterval(intervalChats);
+                //clearInterval(intervalChats);
                 //console.log(intervalReadArray);
                 //for (var i = 0; i < intervalReadArray.length; i++)
                     //clearInterval(intervalReadArray[i]);
@@ -341,7 +341,8 @@ function addFriends() {
                 //console.log(chatGlobal);
                 newChat = 1;
                 newChatUser = username;
-                intervalChats = setInterval(cargarChats, 1500, currentUser);
+                //intervalChats = setInterval(cargarChats, 1500, currentUser);
+                cargarChats(currentUser);
             }
         }
     }
@@ -441,7 +442,7 @@ function sendDifList(username, msg) {
                 alert("Message to " + username + "won't be send beacuse the user doesn't exists");
             } else {
                 console.log('Por aqui');
-                clearInterval(intervalChats);
+                //clearInterval(intervalChats);
                 //console.log(intervalReadArray);
                 for (var i = 0; i < intervalReadArray.length; i++)
                     clearInterval(intervalReadArray[i]);
@@ -451,7 +452,8 @@ function sendDifList(username, msg) {
                 sendFirstMessage(currentUser, username);
                 sendDifusionMsg(username,"***DIFUSSION MSG*** " +  msg  + " ***DIFUSSION MSG***");
                 deleteChats();
-                intervalChats = setInterval(cargarChats, 1500, currentUser);
+                cargarChats(currentUser);
+                //intervalChats = setInterval(cargarChats, 1500, currentUser);
             }
         }
     }
