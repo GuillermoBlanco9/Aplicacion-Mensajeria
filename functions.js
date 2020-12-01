@@ -368,9 +368,9 @@ function sendFirstMessage(user, currentUserNew) {
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 if (this.responseText === "FALSE") {
-                    console.log("primer mensaje no enviado");
+                    console.log("SEND_FIRST_MESAGE: primer mensaje no enviado");
                 } else {
-                    console.log("primer mensaje enviado");
+                    console.log("SEND_FIRST_MESAGE: primer mensaje enviado");
                 }
             }
         }
@@ -448,11 +448,12 @@ function sendDifList(username, msg) {
                     clearInterval(intervalReadArray[i]);
                 intervalReadArray = [];
                 //console.log(intervalReadArray);
-                sendFirstMessage(username, currentUser);
-                sendFirstMessage(currentUser, username);
-                sendDifusionMsg(username,"***DIFUSSION MSG*** " +  msg  + " ***DIFUSSION MSG***");
+                //setTimeout(sendFirstMessage,1000,username, currentUser);
+                //setTimeout(sendFirstMessage,1500,currentUser, username);
+                setTimeout(sendDifusionMsg,2000,username,"***DIFUSSION MSG*** " +  msg  + " ***DIFUSSION MSG***");
                 deleteChats();
-                cargarChats(currentUser);
+                setTimeout(cargarChats,2500,currentUser);
+                //cargarChats(currentUser);
                 //intervalChats = setInterval(cargarChats, 1500, currentUser);
             }
         }
