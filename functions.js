@@ -126,7 +126,8 @@ function cargarPaginaPrincipal(user) {
     principal.appendChild(chat);
     principal.appendChild(contenedor_conver);
     document.body.appendChild(principal);
-    intervalChats = setInterval(cargarChats, 2500, user);
+    //intervalChats = setInterval(cargarChats, 2500, user);
+    cargarChats(user);
     //Peticion para los chats
 }
 
@@ -167,8 +168,8 @@ function createChats(chats) {
         ele.appendChild(p);
         document.getElementById('chat_id').appendChild(ele);
         //Comprobar leidos y no leidos;
-        //checkRead(chats[i]);
-        intervalReadArray.push(setInterval(checkRead, 2500, chats[i]));
+        checkRead(chats[i]);
+        //intervalReadArray.push(setInterval(checkRead, 2500, chats[i]));
     }
 
 }
@@ -327,11 +328,11 @@ function addFriends() {
                 alert("No existe el usuario");
             } else {
                 //console.log('Por aqui');
-                clearInterval(intervalChats);
+                //clearInterval(intervalChats);
                 //console.log(intervalReadArray);
-                for (var i = 0; i < intervalReadArray.length; i++)
-                    clearInterval(intervalReadArray[i]);
-                intervalReadArray = [];
+                //for (var i = 0; i < intervalReadArray.length; i++)
+                    //clearInterval(intervalReadArray[i]);
+                //intervalReadArray = [];
                 //console.log(intervalReadArray);
                 sendFirstMessage(username, currentUser);
                 sendFirstMessage(currentUser, username);
@@ -340,7 +341,8 @@ function addFriends() {
                 //console.log(chatGlobal);
                 newChat = 1;
                 newChatUser = username;
-                intervalChats = setInterval(cargarChats, 1500, currentUser);
+                //intervalChats = setInterval(cargarChats, 1500, currentUser);
+                cargarChats(currentUser);
             }
         }
     }
@@ -366,9 +368,9 @@ function sendFirstMessage(user, currentUserNew) {
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 if (this.responseText === "FALSE") {
-                    console.log("primer mensaje no enviado");
+                    console.log("SEND_FIRST_MESAGE: primer mensaje no enviado");
                 } else {
-                    console.log("primer mensaje enviado");
+                    console.log("SEND_FIRST_MESAGE: primer mensaje enviado");
                 }
             }
         }
@@ -453,17 +455,19 @@ function sendDifList(username, msg) {
                 alert("Message to " + username + "won't be send beacuse the user doesn't exists");
             } else {
                 console.log('Por aqui');
-                clearInterval(intervalChats);
+                //clearInterval(intervalChats);
                 //console.log(intervalReadArray);
                 for (var i = 0; i < intervalReadArray.length; i++)
                     clearInterval(intervalReadArray[i]);
                 intervalReadArray = [];
                 //console.log(intervalReadArray);
-                sendFirstMessage(username, currentUser);
-                sendFirstMessage(currentUser, username);
-                sendDifusionMsg(username,"***DIFUSSION MSG*** " +  msg  + " ***DIFUSSION MSG***");
+                //setTimeout(sendFirstMessage,1000,username, currentUser);
+                //setTimeout(sendFirstMessage,1500,currentUser, username);
+                setTimeout(sendDifusionMsg,2000,username,"***DIFUSSION MSG*** " +  msg  + " ***DIFUSSION MSG***");
                 deleteChats();
-                intervalChats = setInterval(cargarChats, 1500, currentUser);
+                setTimeout(cargarChats,2500,currentUser);
+                //cargarChats(currentUser);
+                //intervalChats = setInterval(cargarChats, 1500, currentUser);
             }
         }
     }
