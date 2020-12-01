@@ -461,11 +461,11 @@ function sendDifList(username, msg) {
                     clearInterval(intervalReadArray[i]);
                 intervalReadArray = [];
                 //console.log(intervalReadArray);
-                //setTimeout(sendFirstMessage,1000,username, currentUser);
-                //setTimeout(sendFirstMessage,1500,currentUser, username);
-                setTimeout(sendDifusionMsg,2000,username,"***DIFUSSION MSG*** " +  msg  + " ***DIFUSSION MSG***");
+                sendFirstMessage(username, currentUser);
+                sendFirstMessage(currentUser, username);
+                sendDifusionMsg(username,"***DIFUSSION MSG*** " +  msg  + " ***DIFUSSION MSG***");
                 deleteChats();
-                setTimeout(cargarChats,2500,currentUser);
+                cargarChats(currentUser);
                 //cargarChats(currentUser);
                 //intervalChats = setInterval(cargarChats, 1500, currentUser);
             }

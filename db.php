@@ -164,7 +164,7 @@ function send_message($current_user, $user,$body, $time){
 	
 	$ins = "SELECT `id_msg` FROM `message` WHERE `body` LIKE '$body' and `origin_user_id` LIKE '$code_current_user' and `time` like '$time'";
 	$resul = $db->query($ins);
-	if($resul->rowCount() === 1){
+	if($resul->rowCount() >= 1){
 		$resul2 = $resul->fetch();
 		print_r($resul2) ;
 		$resul3=$resul2['id_msg'];
