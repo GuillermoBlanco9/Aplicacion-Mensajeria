@@ -416,9 +416,11 @@ function mostrarPerfil(user)
 {
         var p = document.createElement('p');
         p.innerHTML = 'Name: '+user.name+'<br><br>Surname: '+user.surname+'<br><br>Email: '+user.email+
-        '<br><br>address: '+user.address+'<br><br>Username: '+user.username;
-        var img = document.createElement('img');
+        '<br><br>address: '+user.address+'<br><br>Username: '+user.username+'<br><br>';
+        var img = document.createElement('img');    
         img.src=user.picture;
+       // img.setAttribute('url',user.picture);
+        img.setAttribute('alt','no se ve imagen');
         img.style.width='100px';
         img.style.height='100px';
         document.getElementById('conver_id').appendChild(p);
