@@ -400,7 +400,6 @@ function cargarPerfil()
                     alert("No existe este usuario");
                 } else {
                     //metodo para sacar el div con los chats
-                    
                     mostrarPerfil(JSON.parse(this.responseText));
                 }
             }
@@ -415,14 +414,15 @@ function cargarPerfil()
 
 function mostrarPerfil(user)
 {
-    console.log(user);
-    
         var p = document.createElement('p');
         p.innerHTML = 'Name: '+user.name+'<br><br>Surname: '+user.surname+'<br><br>Email: '+user.email+
         '<br><br>address: '+user.address+'<br><br>Username: '+user.username;
+        var img = document.createElement('div');
+        img.style.backgroundImage=user.picture;
+        img.style.width='100px';
+        img.style.height='100px';
         document.getElementById('conver_id').appendChild(p);
-    
-
+        document.getElementById('conver_id').appendChild(img);
 }
 
 

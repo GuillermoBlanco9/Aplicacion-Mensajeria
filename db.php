@@ -226,8 +226,8 @@ function sing_up($username, $name,$surname, $email, $address , $password){
 	if(!exist_user($username))
 		return FALSE;
 	else{
-		$ins2 = "INSERT INTO `users`(`code`, `name`, `surname`, `email`, `password`, `address`,`username` ) VALUES
-				(null,'$name', '$surname', '$email', '$password', '$address' ,'$username')";
+		$ins2 = "INSERT INTO `users`(`code`, `name`, `surname`, `email`, `password`, `address`,`username`,`picture` ) VALUES
+				(null,'$name', '$surname', '$email', '$password', '$address' ,'$username', null)";
 		$resul = $db->query($ins2);
 		if(!$resul)
 		{
@@ -246,7 +246,7 @@ function sing_up($username, $name,$surname, $email, $address , $password){
  {
 	$res = load_config(dirname(__FILE__)."/configuration.xml", dirname(__FILE__)."/configuration.xsd");
 	$db = new PDO($res[0], $res[1], $res[2]);
-	$ins = "SELECT `name`, `surname`, `email`, `address`,`username` FROM `users`
+	$ins = "SELECT `name`, `surname`, `email`, `address`,`username`,`picture` FROM `users`
 			 WHERE `username` LIKE '$username'";
 	$resul = $db->query($ins);
 	$arrayDatos = array();
