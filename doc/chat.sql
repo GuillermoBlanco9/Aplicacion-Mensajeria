@@ -64,16 +64,54 @@ ALTER TABLE `sent_to`
 
 
 -- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Create table if not exists `groups`
+ (
+	`id_group` int(10) NOT NULL,
+  `id_msg` int(10) NOT NULL,
+  `id_user` int(10) NOT NULL,
+  `name` varchar(20) NOT NULL 
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+ALTER TABLE `groups`
+  ADD PRIMARY KEY (`id_group`),
+  ADD KEY `message_id` (`id_msg`),
+  ADD KEY `user_group` (`id_user`);
 
+ALTER TABLE `groups`
+  MODIFY `id_group` int(10) NOT NULL AUTO_INCREMENT;
+-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Create table if not exists `groups_users`
+ (
+   `id_group_user` int(10) NOT NULL,
+	`id_group` int(10) NOT NULL,
+  `id_user` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `groups_users`
+  ADD PRIMARY KEY (`id_group_user`),
+  ADD KEY `group_id` (`id_group`),
+  ADD KEY `user_group` (`id_user`);
+
+ALTER TABLE `groups_users`
+  MODIFY `id_group_user` int(10) NOT NULL AUTO_INCREMENT;
+
+-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ALTER TABLE `message`
   ADD CONSTRAINT `origin_user_id_fk` FOREIGN KEY (`origin_user_id`) REFERENCES `users` (`code`);
   
-  
 ALTER TABLE `sent_to`
   ADD CONSTRAINT `dest_user_id_fk` FOREIGN KEY (`id_dest_user`) REFERENCES `users` (`code`),
   ADD CONSTRAINT `id_msg_fk` FOREIGN KEY (`id_msg`) REFERENCES `message` (`id_msg`);
+
+ALTER TABLE `groups`
+  ADD CONSTRAINT `id_msg_fk2` FOREIGN KEY (`id_msg`) REFERENCES `message` (`id_msg`);
+
+ALTER TABLE `groups_users`
+  ADD CONSTRAINT `id_user_fk` FOREIGN KEY (`id_user`) REFERENCES `users` (`code`),
+  ADD CONSTRAINT `id_group_fk` FOREIGN KEY (`id_group`) REFERENCES `groups` (`id_group`);
   
 -- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
