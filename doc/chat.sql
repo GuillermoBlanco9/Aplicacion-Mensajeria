@@ -82,7 +82,7 @@ ALTER TABLE `sent_to`
 
 
 INSERT INTO `users` (`code`, `name`, `surname`, `email`, `password`, `address`, `username`,`picture`) VALUES
-(null, 'David', 'López', 'davidl@gmail.com', '$2y$10$fRoHxArYEAG74of6CV/TsuR1H0.olHyRBsLcUs4Ou.qKZ.m4/vxtW','Calle Mayor 33 1ºC 24402 Ponferrada, León, España', 'davidL', 'http://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.xatakawindows.com%2Faplicaciones-windows%2Fquieres-recuperar-el-boton-para-ver-imagenes-en-chrome-esta-extension-te-permite-volver-a-habilitarlo&psig=AOvVaw3IOAukd9T4uF3XGycLxS7a&ust=1606937871114000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCLDnoJrEre0CFQAAAAAdAAAAABAE'),
+(null, 'David', 'López', 'davidl@gmail.com', '$2y$10$fRoHxArYEAG74of6CV/TsuR1H0.olHyRBsLcUs4Ou.qKZ.m4/vxtW','Calle Mayor 33 1ºC 24402 Ponferrada, León, España', 'davidL', 'https://hotbook.com.mx/wp-content/uploads/2019/04/hotbook-se-revela-la-primera-imagen-de-un-agujero-negro-portada.jpg'),
 (null, 'Adrián', 'Rodríguez', 'adrianr@gmail.com', '$2y$10$8AkI98nhu494Ke.1M4S0Luah3vaIT0sDKCCpNLd49Kybb1TdgsFs2','Calle Mayor 33 1ºC 24402 Ponferrada, León, España', 'AdrianR', null),
 (null, 'Daniel', 'García', 'danielg@gmail.com', '$2y$10$GU7nuhRImp/V9Yx3aPyC3e8fDIf1nPyD2cWh7AEkSfKEbdhgb4PEq','Calle Mayor 33 1ºC 24402 Ponferrada, León, España', 'DanielG', null),
 (null, 'Guillermo', 'Gil', 'guillermog@gmail.com', '$2y$10$yCl.AV8C/gWP1CxAHXEBZeCaIlgrcr2.mpWI2vhAyb/mXnJFSi5jS','Calle Mayor 33 1ºC 24402 Ponferrada, León, España', 'GuillermoG', null),

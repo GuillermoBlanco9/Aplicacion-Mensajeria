@@ -82,6 +82,19 @@ function cargarPaginaPrincipal(user) {
     h3.id = 'titulo_';
     h3.innerHTML = 'CHATS OF ' + user;
     chat.appendChild(h3);
+    //boton para cambiar foto
+    var foto = document.createElement('input');
+    foto.setAttribute("type","file");
+    foto.accept='image/*';
+    foto.display='none';
+    foto.id='foto_perf';
+    foto.name='image';
+    //if(foto.click()) chat.removeChild(foto);
+    foto.onchange = function(event) {
+        var fileList = foto.files;
+        console.log(fileList[0].name);
+     }
+    chat.appendChild(foto);
     //boton para agregar
     var agregar = document.createElement('button');
     agregar.addEventListener('click', addFriends);
@@ -356,7 +369,7 @@ function addFriends() {
 
 function deleteChats() {
     var ele = document.getElementById('chat_id');
-    while (ele.children.length > 3)
+    while (ele.children.length > 4)
         ele.removeChild(ele.lastChild);
 }
 
@@ -420,12 +433,14 @@ function mostrarPerfil(user)
         var img = document.createElement('img');    
         img.src=user.picture;
        // img.setAttribute('url',user.picture);
-        img.setAttribute('alt','no se ve imagen');
+        img.setAttribute('url',user.picture);
         img.style.width='100px';
         img.style.height='100px';
-        document.getElementById('conver_id').appendChild(p);
         document.getElementById('conver_id').appendChild(img);
+        document.getElementById('conver_id').appendChild(p);
 }
+        
+        
 
 
 //boton para mostrar el sign_up
