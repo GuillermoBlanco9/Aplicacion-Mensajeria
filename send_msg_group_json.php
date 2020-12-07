@@ -1,16 +1,18 @@
 <?php 
 require_once 'db.php';
 require 'sessions_json.php';
-if(!check_session()) return;
-if ($_SERVER["REQUEST_METHOD"] == "POST") {   
-    $send = send_group_message($_POST['currentUser'], $_POST['group'], 
-            $_POST['body'], $_POST['time']);
-	if($send===FALSE){ 
-        echo "FALSE"; 
-    }else{   
-        //$array = iterator_to_array($chats);
-	    //$json = json_encode($chats);   
-        //echo $json;
-        echo 'TRUE';
-    }  	
-} 
+if(check_session() != "FALSE"){
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {   
+        $send = send_group_message($_POST['currentUser'], $_POST['group'], 
+                $_POST['body'], $_POST['time']);
+        if($send===FALSE){ 
+            echo "FALSE"; 
+        }else{   
+            //$array = iterator_to_array($chats);
+            //$json = json_encode($chats);   
+            //echo $json;
+            echo 'TRUE';
+        }  	
+    } 
+}
+
