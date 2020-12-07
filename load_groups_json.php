@@ -1,5 +1,7 @@
 <?php 
-require_once 'db.php'; 
+require_once 'db.php';
+require 'sessions_json.php';
+if(!check_session()) return; 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {   
     $conver = get_conersation_group($_POST['group']);
 	if($conver===FALSE){ 

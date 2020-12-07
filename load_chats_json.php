@@ -1,5 +1,7 @@
 <?php 
-require_once 'db.php'; 
+require_once 'db.php';
+require 'sessions_json.php';
+if(!check_session()) return;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {   
     $conver = get_conversation($_POST['user'], $_POST['currentUser']);
 	if($conver===FALSE){ 

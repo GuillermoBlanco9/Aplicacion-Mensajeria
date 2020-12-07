@@ -1,5 +1,7 @@
 <?php 
-require_once 'db.php'; 
+require_once 'db.php';
+require 'sessions_json.php';
+if(!check_session()) return; 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {   
     $send = send_message($_POST['currentUser'], $_POST['user'], 
             $_POST['body'], $_POST['time']);
