@@ -53,6 +53,21 @@ function login() {
     return false;
 }
 
+function logout(){
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            if (this.responseText != "FALSE") {
+                location.reload();
+            }    
+        }
+    }
+    xhttp.open("POST", "logout_json.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send();
+    return false;
+}
+
 function sing_up() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -130,6 +145,11 @@ function cargarPaginaPrincipal(user) {
     difusion.addEventListener('click', difusionList);
     difusion.innerHTML = '<b> Difusion Message +</b>'
     chat.appendChild(difusion);
+    //boton log out
+    var exit = document.createElement('button');
+    exit.addEventListener('click', logout);
+    exit.innerHTML = '<b> logout </b>'
+    chat.appendChild(exit);
     //contenedor de la conversacion y la barra para escribir
     var contenedor_conver = document.createElement('div');
     contenedor_conver.id = "contenedor_conver_id";
@@ -513,7 +533,7 @@ function addFriends() {
 
 function deleteChats() {
     var ele = document.getElementById('chat_id');
-    while (ele.children.length > 3)
+    while (ele.children.length > 4)
         ele.removeChild(ele.lastChild);
 }
 
