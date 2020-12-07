@@ -222,7 +222,41 @@ function send_message($current_user, $user,$body, $time){
 	}
 	else
 		return FALSE;
+}
+
+function send_group_message($current_user, $group,$body, $time){
+	$code_current_user=get_code($current_user);
+	$res = load_config(dirname(__FILE__)."/configuration.xml", dirname(__FILE__)."/configuration.xsd");
+	$db = new PDO($res[0], $res[1], $res[2]);
+	$ins = "INSERT INTO `message`(`id_msg`, `body`, `origin_user_id`, `time`) VALUES
+			(null,'$body', '$code_current_user', '$time')";
+	$resul = $db->query($ins);
+	if(!$resul){
+		print_r($db->errorInfo());
+		$db->rollBack();
+		return FALSE;
+	}
 	
+	$ins = "SELECT `id_msg` FROM `message` WHERE `body` LIKE '$body' and `origin_user_id` LIKE '$code_current_user' and `time` like '$time'";
+	$resul = $db->query($ins);
+	if($resul->rowCount() >= 1){
+		$resul2 = $resul->fetch();
+		//print_r($resul2) ;
+		$resul3=$resul2['id_msg'];
+		$ins = "INSERT INTO `groups`(`id_group`, `id_msg`, `id_user`, `name`) VALUES (null,'$resul3','$code_current_user','$group')";
+		$resul = $db->query($ins);
+		if(!$resul){
+			print_r($db->errorInfo());
+			$db->rollBack();
+			return FALSE;
+		}
+		else{
+			return TRUE;
+		}
+	}
+	else
+		return FALSE;
+
 }
 
 function check_read($current_user, $user){
