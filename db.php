@@ -55,28 +55,6 @@ function get_chats($username){
 	return $arrayCode;
 }
 
-function get_groups($username){
-	$code_user = get_code($username);
-	$res = load_config(dirname(__FILE__)."/configuration.xml", dirname(__FILE__)."/configuration.xsd");
-	$db = new PDO($res[0], $res[1], $res[2]);
-	$ins = "SELECT `groups`.`name` FROM `groups`
-				INNER JOIN `groups_users` ON `groups`.`id_user` = `groups_users`.`id_user`
-    			INNER JOIN `users` ON `groups_users`.`id_user` = `users`.`code`
-    			where `users`.`username` LIKE '$username'
-				group by `groups`.`name`";
-	$resul = $db->query($ins);
-	$arrayGroups = array();
-	if($resul->rowCount() > 0){
-		while($row = $resul->fetch())
-			array_push($arrayGroups, $row['name']);
-		return $arrayGroups;
-	}
-	else
-		return FALSE;
-}
-
-
-
 function get_username($code){
 	$res = load_config(dirname(__FILE__)."/configuration.xml", dirname(__FILE__)."/configuration.xsd");
 	$db = new PDO($res[0], $res[1], $res[2]);

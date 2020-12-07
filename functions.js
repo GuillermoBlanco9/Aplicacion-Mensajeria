@@ -9,7 +9,6 @@ var newChat = 0;
 var newChatUser = '';
 //variable para guardar los chats
 var chatGlobal = [];
-var gruposGlobal = [];
 
 //Petición para el loggin
 function login() {
@@ -155,9 +154,7 @@ function cargarChats(user) {
             } else {
                 //alert('va bien');
                 deleteChats();
-                console.log(JSON.parse(this.responseText));
                 createChats(JSON.parse(this.responseText));
-                //cargarGrupos();
             }
         }
     }
@@ -187,47 +184,7 @@ function createChats(chats) {
         checkRead(chats[i]);
         //intervalReadArray.push(setInterval(checkRead, 2500, chats[i]));
     }
-}
 
-function cargarGrupos(){
-    console.log(currentUser);
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            if (this.responseText === "FALSE") {
-                console.log('NO HAY GRUPOS O FALLA')
-            }
-            else{
-                console.log(JSON.parse(this.responseText));
-                createGroups(JSON.parse(this.responseText));
-            }
-        }
-    }
-    var params = "currentUser=" + currentUser;
-    xhttp.open("POST", "get_groups.php", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send(params);
-    return false;
-}
-
-function createGroups(grupos) {
-    gruposGlobal = [];
-    gruposGlobal = grupos;
-    //console.log(chatGlobal);
-    for (var i = 0; i < grupos.length; i++) {
-        var ele = document.createElement('div');
-        ele.id = 'group_' + grupos[i];
-        ele.style.textAlign = 'center';
-        ele.addEventListener("click", onClick)
-        var p = document.createElement('p');
-        p.innerHTML = grupos[i];
-        p.style.margin = '10px';
-        ele.appendChild(p);
-        document.getElementById('chat_id').appendChild(ele);
-        //Comprobar leidos y no leidos;
-        //checkRead(grupos[i]);
-        //intervalReadArray.push(setInterval(checkRead, 2500, grupos[i]));
-    }
 }
 
 //Función que comprueba los leidos
@@ -301,6 +258,10 @@ function updateRead(currentUser) {
 
 //Recibe los mensajes por parámetro y los pone en el dom
 function cargarConversacion(arrayMsg) {
+
+    
+
+
     for (var i = 0; i < arrayMsg.length; i++) {
         var tmp = arrayMsg[i].time;
         arrayMsg[i].time = new Date(tmp);
@@ -379,17 +340,22 @@ function addFriends() {
             if (this.responseText === "FALSE") {
                 alert("No existe el usuario");
             } else {
+                //console.log('Por aqui');
+                //clearInterval(intervalChats);
+                //console.log(intervalReadArray);
+                //for (var i = 0; i < intervalReadArray.length; i++)
+                    //clearInterval(intervalReadArray[i]);
+                //intervalReadArray = [];
+                //console.log(intervalReadArray);
                 sendFirstMessage(username, currentUser);
                 sendFirstMessage(currentUser, username);
                 deleteChats();
                 chatGlobal.push(username);
+                //console.log(chatGlobal);
                 newChat = 1;
                 newChatUser = username;
-                //console.log(chatGlobal);
+                //intervalChats = setInterval(cargarChats, 1500, currentUser);
                 cargarChats(currentUser);
-                cargarChats(currentUser);
-                //createChats(chatGlobal);
-                //setTimeout(cargarChats, 1000, currentUser);
             }
         }
     }
@@ -517,7 +483,6 @@ function sendDifList(username, msg) {
                 sendDifusionMsg(username,"***DIFUSSION MSG*** " +  msg  + " ***DIFUSSION MSG***");
                 deleteChats();
                 cargarChats(currentUser);
-                //setTimeout(cargarChats, 2000, currentUser);
                 //cargarChats(currentUser);
                 //intervalChats = setInterval(cargarChats, 1500, currentUser);
             }
