@@ -52,7 +52,28 @@ function get_chats($username){
 		while($row = $resul->fetch())
 			array_push($arrayCode, $row['username']);
 	}
+	//print_r($arrayCode);
 	return $arrayCode;
+}
+
+function get_groups($username){
+	$code_user = get_code($username);
+	$res = load_config(dirname(__FILE__)."/configuration.xml", dirname(__FILE__)."/configuration.xsd");
+	$db = new PDO($res[0], $res[1], $res[2]);
+	$ins = "SELECT `groups`.`name` FROM `groups`
+				INNER JOIN `groups_users` ON `groups`.`id_user` = `groups_users`.`id_user`
+    			INNER JOIN `users` ON `groups_users`.`id_user` = `users`.`code`
+    			where `users`.`username` LIKE '$username'
+				group by `groups`.`name`";
+	$resul = $db->query($ins);
+	$arrayGroups = array();
+	if($resul->rowCount() > 0){
+		while($row = $resul->fetch())
+			array_push($arrayGroups, $row['name']);
+		return $arrayGroups;
+	}
+	else
+		return FALSE;
 }
 
 function get_username($code){
@@ -109,6 +130,27 @@ function get_conversation($user,$currentUser){
 			`sent_to`.`id_dest_user` LIKE '$code_user' AND 
 			`message`.`origin_user_id` LIKE '$code_current_user'";
 	$resul3 = $db->query($ins3);
+		return $arrayMsg;
+	}else{
+		return FALSE;
+	}	
+}
+
+function get_conersation_group($groupname){
+	$arrayMsg = array();
+	$res = load_config(dirname(__FILE__)."/configuration.xml", dirname(__FILE__)."/configuration.xsd");
+	$db = new PDO($res[0], $res[1], $res[2]);
+	//mensajes de current_user a user
+	$ins = "SELECT `message`.`body`,`message`.`origin_user_id`, `message`.`time`
+			from `message` join  `groups`
+			on `groups`.`id_msg` = `message`.`id_msg` 
+			where `groups`.`name` like '$groupname'";
+	$resul = $db->query($ins);
+	if($resul->rowCount() > 0){
+		while($row = $resul->fetch()){
+			$row['origin_user_id'] = get_username($row['origin_user_id']);
+			array_push($arrayMsg, $row);
+		}
 		return $arrayMsg;
 	}else{
 		return FALSE;
@@ -181,7 +223,41 @@ function send_message($current_user, $user,$body, $time){
 	}
 	else
 		return FALSE;
+}
+
+function send_group_message($current_user, $group,$body, $time){
+	$code_current_user=get_code($current_user);
+	$res = load_config(dirname(__FILE__)."/configuration.xml", dirname(__FILE__)."/configuration.xsd");
+	$db = new PDO($res[0], $res[1], $res[2]);
+	$ins = "INSERT INTO `message`(`id_msg`, `body`, `origin_user_id`, `time`) VALUES
+			(null,'$body', '$code_current_user', '$time')";
+	$resul = $db->query($ins);
+	if(!$resul){
+		print_r($db->errorInfo());
+		$db->rollBack();
+		return FALSE;
+	}
 	
+	$ins = "SELECT `id_msg` FROM `message` WHERE `body` LIKE '$body' and `origin_user_id` LIKE '$code_current_user' and `time` like '$time'";
+	$resul = $db->query($ins);
+	if($resul->rowCount() >= 1){
+		$resul2 = $resul->fetch();
+		//print_r($resul2) ;
+		$resul3=$resul2['id_msg'];
+		$ins = "INSERT INTO `groups`(`id_group`, `id_msg`, `id_user`, `name`) VALUES (null,'$resul3','$code_current_user','$group')";
+		$resul = $db->query($ins);
+		if(!$resul){
+			print_r($db->errorInfo());
+			$db->rollBack();
+			return FALSE;
+		}
+		else{
+			return TRUE;
+		}
+	}
+	else
+		return FALSE;
+
 }
 
 function check_read($current_user, $user){
