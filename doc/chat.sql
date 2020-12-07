@@ -158,10 +158,7 @@ INSERT INTO `message` (`id_msg`,`body`,`origin_user_id`,`time`) VALUES
    (null,'Lorem ipsum dolor sit amet','3','2020-11-16 10:10:10'),
   (null,'Lorem ipsum dolor sit amet','2','2020-11-17 10:10:30'),
   (null,'Lorem ipsum dolor sit amet','3','2020-11-17 10:11:10'),
-  (null,'Lorem ipsum dolor sit amet','3','2020-11-17 10:10:20'),
-  (null,'Primer mensaje de el grupo soria','1','2020-11-17 10:10:20'),
-  (null,'Segundo mensaje de el grupo soria','2','2020-11-17 10:10:20'),
-  (null,'Tercer mensaje de el grupo soria','3','2020-11-17 10:10:20');
+  (null,'Lorem ipsum dolor sit amet','3','2020-11-17 10:10:20');
 
 
   -- -------------------------------------------------------------------------------------------------
@@ -193,17 +190,3 @@ INSERT INTO `message` (`id_msg`,`body`,`origin_user_id`,`time`) VALUES
   (null,'23','2','1'),
  (null,'24','2','1');
  
-
-  -- -------------------------------------------------------------------------------------------------
-  
-  INSERT INTO `groups` (`id_group`,`id_msg`, `id_user`, `name`) VALUES
-  (null,'25', '1', 'soria'),
-  (null,'26', '2', 'soria'),
-  (null,'27', '3', 'soria');
-
-  -- -------------------------------------------------------------------------------------------------
-
-   INSERT INTO `groups_users` (`id_group_user`,`id_group`, `id_user`) VALUES
-  (null,'1', '1'),
-  (null,'2', '2'),
-  (null,'3', '3');
