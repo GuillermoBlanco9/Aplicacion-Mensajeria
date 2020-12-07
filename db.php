@@ -135,6 +135,27 @@ function get_conversation($user,$currentUser){
 	}	
 }
 
+function get_conersation_group($groupname){
+	$arrayMsg = array();
+	$res = load_config(dirname(__FILE__)."/configuration.xml", dirname(__FILE__)."/configuration.xsd");
+	$db = new PDO($res[0], $res[1], $res[2]);
+	//mensajes de current_user a user
+	$ins = "SELECT `message`.`body`,`message`.`origin_user_id`, `message`.`time`
+			from `message` join  `groups`
+			on `groups`.`id_msg` = `message`.`id_msg` 
+			where `groups`.`name` like '$groupname'";
+	$resul = $db->query($ins);
+	if($resul->rowCount() > 0){
+		while($row = $resul->fetch()){
+			$row['origin_user_id'] = get_username($row['origin_user_id']);
+			array_push($arrayMsg, $row);
+		}
+		return $arrayMsg;
+	}else{
+		return FALSE;
+	}	
+}
+
 function update_read($current_user, $user){
 	$code_user=get_code($user);
 	$code_current_user=get_code($current_user);
@@ -288,7 +309,7 @@ function update_profile($name, $username, $email, $current)
 	$ins = "UPDATE `users` SET `users`.`username` = '$username',
 			`users`.`name` = '$name',
 			`users`.`email` = '$email'
-			WHERE `users`.`username` = '$curren' ";
+			WHERE `users`.`username` = '$current'";
 		$resul = $db->query($ins);
 	if($resul === TRUE)
 		return TRUE;

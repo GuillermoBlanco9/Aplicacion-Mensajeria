@@ -10,6 +10,7 @@ var newChatUser = '';
 //variable para guardar los chats
 var chatGlobal = [];
 var groupglobal = [];
+var groupglobal = '';
 
 //Petición para el loggin
 function login() {
@@ -283,29 +284,30 @@ function onClick() {
 function onClick2() {
     clearInterval(intervalConversation);
     while (document.getElementById('conver_id').firstChild)
-    document.getElementById('conver_id').removeChild(document.getElementById('conver_id').firstChild);
-    var user = this.id.substring(6, this.id.length);
-    userGlobal = user;
+        document.getElementById('conver_id').removeChild(document.getElementById('conver_id').firstChild);
+    var group = this.id.substring(6, this.id.length);
+    groupglobal  = group;
     //poner titulo de conver 
-    document.getElementById('divPerf').innerHTML=''+userGlobal;
+    document.getElementById('divPerf').innerHTML=''+group;
     //Poner en negro si hay mensajes  leidos
     document.getElementById(this.id).style.color = '#FFFFFF';
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             if (this.responseText === "FALSE") {
-                //console.log("No funciona");
+                console.log("No funciona");
             } else {
                 newChat = 0;
                 newChatUser = 0;
                 //metodo para sacar el div con los chats
+                console.log(JSON.parse(this.responseText));
                 cargarConversacion(JSON.parse(this.responseText));
-                intervalConversation = setInterval(updateConver, 1500);
+                //intervalConversation = setInterval(updateConver, 1500);
             }
         }
     }
-    var params = "currentUser=" + currentUser + "&user=" + user;
-    xhttp.open("POST", "load_chats_json.php", true);
+    var params = "group=" + group;
+    xhttp.open("POST", "load_groups_json.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(params);
     return false;
@@ -332,10 +334,6 @@ function updateRead(currentUser) {
 
 //Recibe los mensajes por parámetro y los pone en el dom
 function cargarConversacion(arrayMsg) {
-
-    
-
-
     for (var i = 0; i < arrayMsg.length; i++) {
         var tmp = arrayMsg[i].time;
         arrayMsg[i].time = new Date(tmp);
