@@ -81,20 +81,22 @@ function cargarPaginaPrincipal(user) {
     //h3.style.margin='10px';
     h3.id = 'titulo_';
     h3.innerHTML = 'CHATS OF ' + user;
+    h3.addEventListener('click' , perfilPersonal)
     chat.appendChild(h3);
     //boton para cambiar foto
+    /*
     var foto = document.createElement('input');
     foto.setAttribute("type","file");
     foto.accept='image/*';
     foto.display='none';
     foto.id='foto_perf';
     foto.name='image';
-    //if(foto.click()) chat.removeChild(foto);
     foto.onchange = function(event) {
         var fileList = foto.files;
-        console.log(fileList[0].name);
+        console.log(fileList[0].name)
      }
     chat.appendChild(foto);
+    */
     //boton para agregar
     var agregar = document.createElement('button');
     agregar.addEventListener('click', addFriends);
@@ -369,7 +371,7 @@ function addFriends() {
 
 function deleteChats() {
     var ele = document.getElementById('chat_id');
-    while (ele.children.length > 4)
+    while (ele.children.length > 3)
         ele.removeChild(ele.lastChild);
 }
 
@@ -425,6 +427,32 @@ function cargarPerfil()
         
 }
 
+function perfilPersonal()
+{
+    clearInterval(intervalConversation);
+    while (document.getElementById('conver_id').firstChild)
+        document.getElementById('conver_id').removeChild(document.getElementById('conver_id').firstChild);
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                if (this.responseText === "FALSE") {
+                    alert("No existe este usuario");
+                } else {
+                    //metodo para sacar el div con los chats
+                    mostrarPerfilPersonal(JSON.parse(this.responseText));
+                }
+            }
+        }
+        var params = "username=" + currentUser;
+        xhttp.open("POST", "get_profile.php", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send(params);
+        return false;
+
+
+}
+
 function mostrarPerfil(user)
 {
         var p = document.createElement('p');
@@ -432,14 +460,92 @@ function mostrarPerfil(user)
         '<br><br>address: '+user.address+'<br><br>Username: '+user.username+'<br><br>';
         var img = document.createElement('img');    
         img.src=user.picture;
-       // img.setAttribute('url',user.picture);
         img.setAttribute('url',user.picture);
         img.style.width='100px';
         img.style.height='100px';
         document.getElementById('conver_id').appendChild(img);
         document.getElementById('conver_id').appendChild(p);
 }
+
+function mostrarPerfilPersonal(user)
+{
+    
+    document.getElementById('divPerf').innerHTML=''+user.username;
+
+        var label=document.createElement('label');
+        label.innerHTML='Name: ';
+        var p = document.createElement('textarea');
+        p.innerHTML = ''+user.name;
+        p.id='name';
+        p.className='textarea';
+
+        var label1=document.createElement('label1');
+        label1.innerHTML='Username: ';
+        var p1 = document.createElement('textarea');
+        p1.innerHTML = ''+user.username;
+        p1.id='username';
+        p1.className='textarea';
+
+        var label2=document.createElement('label2');
+        label2.innerHTML='Gmail: ';
+        var p2 = document.createElement('textarea');
+        p2.innerHTML = ''+user.email;
+        p2.id='mail';
+        p2.className='textarea';
+
+
+        var updateBttn=document.createElement('button');
+        updateBttn.addEventListener('click' , updateInfo);
+        updateBttn.innerHTML='Update';
+
+        //imagen
+        var foto = document.createElement('input');
+        foto.setAttribute("type","file");
+        foto.accept='image/*';
+        foto.style.float='left';
+        var img = document.createElement('img');    
+        img.src=user.picture;
+        img.setAttribute('url',user.picture);
+        img.style.width='100px';
+        img.style.height='100px';
+        img.style.float='left';
+        document.getElementById('conver_id').appendChild(img);
+        document.getElementById('conver_id').appendChild(label);
+        document.getElementById('conver_id').appendChild(p);
+        document.getElementById('conver_id').appendChild(label1);
+        document.getElementById('conver_id').appendChild(p1);
+        document.getElementById('conver_id').appendChild(label2);
+        document.getElementById('conver_id').appendChild(p2);
+        document.getElementById('conver_id').appendChild(updateBttn);
+        document.getElementById('conver_id').appendChild(foto);
+}
         
+
+function updateInfo()
+{
+    var name=document.getElementById('name').value;
+    var username=document.getElementById('username').value;
+    var mail=document.getElementById('mail').value;
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            if (this.responseText === "FALSE") {
+                alert("No existe este usuario");
+            } else {
+                //metodo para sacar el div con los chats
+                //mostrarPerfilPersonal(JSON.parse(this.responseText));
+                alert ('Funciona');
+            }
+        }
+    }
+    var params = "name=" + name+ "&username=" + username + "&mail=" + mail + '&user='+currentUser;
+    xhttp.open("POST", "update_profile.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send(params);
+    return false;
+    
+}
         
 
 

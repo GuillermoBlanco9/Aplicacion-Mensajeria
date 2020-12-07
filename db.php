@@ -261,8 +261,20 @@ function sing_up($username, $name,$surname, $email, $address , $password){
 
 
 
-
-
+function update_profile($name, $username, $email, $current)
+{
+	$res = load_config(dirname(__FILE__)."/configuration.xml", dirname(__FILE__)."/configuration.xsd");
+	$db = new PDO($res[0], $res[1], $res[2]);
+	$ins = "UPDATE `users` SET `users`.`username` = '$username',
+			`users`.`name` = '$name',
+			`users`.`email` = '$email'
+			WHERE `users`.`username` = '$curren' ";
+		$resul = $db->query($ins);
+	if($resul === TRUE)
+		return TRUE;
+	else 
+		return FALSE;
+}
 
 
 
