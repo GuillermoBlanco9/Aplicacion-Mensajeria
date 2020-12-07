@@ -9,6 +9,7 @@ var newChat = 0;
 var newChatUser = '';
 //variable para guardar los chats
 var chatGlobal = [];
+var groupglobal = [];
 
 //Petición para el loggin
 function login() {
@@ -155,6 +156,7 @@ function cargarChats(user) {
                 //alert('va bien');
                 deleteChats();
                 createChats(JSON.parse(this.responseText));
+                cargarGrupos();
             }
         }
     }
@@ -184,7 +186,46 @@ function createChats(chats) {
         checkRead(chats[i]);
         //intervalReadArray.push(setInterval(checkRead, 2500, chats[i]));
     }
+}
 
+function cargarGrupos(){
+    console.log(currentUser);
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            if (this.responseText === "FALSE") {
+                console.log('NO HAY GRUPOS O FALLA')
+            }
+            else{
+                console.log(JSON.parse(this.responseText));
+                createGroups(JSON.parse(this.responseText));
+            }
+        }
+    }
+    var params = "currentUser=" + currentUser;
+    xhttp.open("POST", "get_groups.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send(params);
+    return false;
+}
+
+function createGroups(grupos) {
+    gruposGlobal = [];
+    gruposGlobal = grupos;
+    //console.log(chatGlobal);
+    for (var i = 0; i < grupos.length; i++) {
+        var ele = document.createElement('div');
+        ele.id = 'group_' + grupos[i];
+        ele.style.textAlign = 'center';
+        ele.addEventListener("click", onClick2)
+        var p = document.createElement('p');
+        p.innerHTML = grupos[i];
+        p.style.margin = '10px';
+        ele.appendChild(p);
+        document.getElementById('chat_id').appendChild(ele);
+        //Comprobar leidos y no leidos;
+        //checkRead(grupos[i]);
+    }
 }
 
 //Función que comprueba los leidos
@@ -212,6 +253,37 @@ function onClick() {
     var user = this.id.substring(5, this.id.length);
     userGlobal = user;
     updateRead(currentUser);
+    //poner titulo de conver 
+    document.getElementById('divPerf').innerHTML=''+userGlobal;
+    //Poner en negro si hay mensajes  leidos
+    document.getElementById(this.id).style.color = '#FFFFFF';
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            if (this.responseText === "FALSE") {
+                //console.log("No funciona");
+            } else {
+                newChat = 0;
+                newChatUser = 0;
+                //metodo para sacar el div con los chats
+                cargarConversacion(JSON.parse(this.responseText));
+                intervalConversation = setInterval(updateConver, 1500);
+            }
+        }
+    }
+    var params = "currentUser=" + currentUser + "&user=" + user;
+    xhttp.open("POST", "load_chats_json.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send(params);
+    return false;
+}
+
+function onClick2() {
+    clearInterval(intervalConversation);
+    while (document.getElementById('conver_id').firstChild)
+    document.getElementById('conver_id').removeChild(document.getElementById('conver_id').firstChild);
+    var user = this.id.substring(6, this.id.length);
+    userGlobal = user;
     //poner titulo de conver 
     document.getElementById('divPerf').innerHTML=''+userGlobal;
     //Poner en negro si hay mensajes  leidos
