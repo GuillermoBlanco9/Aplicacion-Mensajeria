@@ -65,6 +65,15 @@ div.conver #form_message{
     line-height: 1.5em;
 }
 
+.textarea
+{
+    height:3%;
+    width:91%;
+    background-color:#d4fccf;
+    resize:none;
+    float:left;
+}
+
 .chat div {
     display: block;
     font-size: 1.2em;
