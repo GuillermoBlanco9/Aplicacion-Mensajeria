@@ -13,6 +13,24 @@ var chatGlobal = [];
 var groupglobal = [];
 var groupglobal = '';
 
+window.onload = function (){
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            if (this.responseText === "FALSE") {
+                console.log("No hay sesion");
+            } else {
+                console.log(this.responseText);
+                cargarPaginaPrincipal(this.responseText);
+            }
+        }
+    }
+    xhttp.open("POST", "check_session.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send();
+    return false;
+}
+
 //Petición para el loggin
 function login() {
     var xhttp = new XMLHttpRequest();
@@ -66,6 +84,8 @@ function sing_up() {
 
 //Crea los elementos de la página principal
 function cargarPaginaPrincipal(user) {
+    console.log(user);
+    currentUser = user
     //Borrado de el form
     document.body.removeChild(document.getElementById("form"));
     if (document.getElementById("sing_up") != null)
@@ -151,6 +171,7 @@ function cargarPaginaPrincipal(user) {
 
 //Petición para obtener los usuarios con los que se ha hablado
 function cargarChats(user) {
+    //console.log(user);
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -158,6 +179,7 @@ function cargarChats(user) {
                 alert("Something went wrong");
             } else {
                 //alert('va bien');
+                console.log(typeof(this.responseText));
                 deleteChats();
                 createChats(JSON.parse(this.responseText));
                 cargarGrupos();

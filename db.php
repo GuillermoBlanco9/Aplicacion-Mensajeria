@@ -52,6 +52,7 @@ function get_chats($username){
 		while($row = $resul->fetch())
 			array_push($arrayCode, $row['username']);
 	}
+	//print_r($arrayCode);
 	return $arrayCode;
 }
 
