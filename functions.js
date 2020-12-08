@@ -659,7 +659,7 @@ function mostrarPerfilPersonal(user)
 
         //imagen
         var form=document.createElement('form');
-        form.action = 'upload_image.php';
+        //form.action = 'upload_image.php';
         //form.addEventListener('submit' , cargarPaginaPrincipal(currentUser));
         form.id='formImg';
         form.method='post';
@@ -697,17 +697,18 @@ function mostrarPerfilPersonal(user)
 function updateInfo()
 {
     var name=document.getElementById('name').value;
-    var username=document.getElementById('address').value;
+    var address=document.getElementById('address').value;
     var mail=document.getElementById('mail').value;
     var foto=document.getElementById('myfile').value;
     console.log(foto)
-    document.getElementById('formImg').submit();
+    //document.getElementById('formImg').submit();
 
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             if (this.responseText === "FALSE") {
-               
+                
+                mostrarPerfilPersonal(currentUser);
             } else {
                 //metodo para sacar el div con los chats
                 //mostrarPerfilPersonal(JSON.parse(this.responseText));
@@ -715,7 +716,7 @@ function updateInfo()
             }
         }
     }
-    var params = "name=" + name+ "&username=" + username + "&email=" + mail + '&user='+currentUser;
+    var params = "name=" + name+ "&address=" + address + "&email=" + mail + '&user='+currentUser;
     xhttp.open("POST", "update_profile.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(params);
