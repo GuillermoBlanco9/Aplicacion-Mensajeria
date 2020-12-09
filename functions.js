@@ -143,6 +143,7 @@ function cargarPaginaPrincipal(user) {
     var input = document.createElement('input');
     input.id = 'input_msg';
     var button = document.createElement('button');
+    button.innerHTML='SEND';
     button.addEventListener('click', sendMessage);
     form.appendChild(input);
     form.appendChild(button);
