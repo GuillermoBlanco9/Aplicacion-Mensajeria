@@ -341,15 +341,18 @@ function update_profile($name, $address, $email, $current)
 {
 	$res = load_config(dirname(__FILE__)."/configuration.xml", dirname(__FILE__)."/configuration.xsd");
 	$db = new PDO($res[0], $res[1], $res[2]);
-	$ins = "UPDATE `users` SET `users`.`address` = '$address',
-			`users`.`name` = '$name',
-			`users`.`email` = '$email'
-			WHERE `users`.`username` = '$current' ";
-		$resul = $db->query($ins);
-	if($resul === TRUE)
-		return TRUE;
-	else 
+	$ins = "UPDATE `users` SET `address` = '$address',
+			`name` = '$name',
+			`email` = '$email'
+			WHERE `username` = '$current' ";
+	$resul = $db->query($ins);
+	if(!$resul){
+		print_r($db->errorInfo());
+		$db->rollBack();
 		return FALSE;
+	}
+	else
+		return TRUE;
 }
 
 

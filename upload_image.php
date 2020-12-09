@@ -6,7 +6,6 @@ if(!check_session()) return;
 		echo "<br>Too big $tam";
 		return;
 	}
-	
 	$res = move_uploaded_file($_FILES["myfile"]["tmp_name"],"profilePic/" . $_FILES["myfile"]["name"]);
     
    

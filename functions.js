@@ -111,21 +111,6 @@ function cargarPaginaPrincipal(user) {
     h3.innerHTML = 'CHATS OF ' + user;
     h3.addEventListener('click', perfilPersonal)
     chat.appendChild(h3);
-    //boton para cambiar foto
-    /*
-    var foto = document.createElement('input');
-    foto.setAttribute("type","file");
-    foto.accept='image/*';
-    foto.display='none';
-    foto.id='foto_perf';
-    foto.name='image';
-    foto.onchange = function(event) {
-        var fileList = foto.files;
-        console.log(fileList[0].name)
-     }
-    chat.appendChild(foto);
-    */
-    //boton para agregar
     var agregar = document.createElement('button');
     agregar.addEventListener('click', addFriends);
     agregar.innerHTML = '<b> Add friends +</b>';
@@ -594,7 +579,7 @@ function mostrarPerfilPersonal(user) {
     updateBttn.innerHTML = 'Update';
     //imagen
     var form = document.createElement('form');
-    //form.action = 'upload_image.php';
+    form.action = 'update_profile.php';
     //form.addEventListener('submit' , cargarPaginaPrincipal(currentUser));
     form.id = 'formImg';
     form.method = 'post';
@@ -629,20 +614,20 @@ function updateInfo() {
     var mail = document.getElementById('mail').value;
     var foto = document.getElementById('myfile').value;
     console.log(foto)
-    //document.getElementById('formImg').submit();
+    document.getElementById('formImg').submit();
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             if (this.responseText === "FALSE") {
-
-                mostrarPerfilPersonal(currentUser);
+                alert('something went wrong')
+                //mostrarPerfilPersonal(currentUser);
             } else {
                 //mostrarPerfilPersonal(JSON.parse(this.responseText));
-                alert('Invalid Username.');
+                //alert('Invalid Username.');
             }
         }
     }
-    var params = "name=" + name + "&address=" + address + "&email=" + mail + '&user=' + currentUser;
+    var params = "name=" + name + "&address=" + address + "&email=" + mail + '&user=' + currentUser + '&picture=' + foto;
     xhttp.open("POST", "update_profile.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(params);
