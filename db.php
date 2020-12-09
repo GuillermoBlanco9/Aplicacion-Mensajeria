@@ -303,7 +303,7 @@ function sing_up($username, $name,$surname, $email, $address , $password){
 		return FALSE;
 	else{
 		$ins2 = "INSERT INTO `users`(`code`, `name`, `surname`, `email`, `password`, `address`,`username`,`picture` ) VALUES
-				(null,'$name', '$surname', '$email', '$password', '$address' ,'$username', null)";
+				(null,'$name', '$surname', '$email', '$password', '$address' ,'$username', 'http://localhost/Aplicacion-Mensajeria/profilePic/$username.jpg')";
 		$resul = $db->query($ins2);
 		if(!$resul)
 		{
