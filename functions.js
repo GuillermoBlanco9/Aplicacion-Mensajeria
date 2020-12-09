@@ -15,9 +15,8 @@ window.onload = function () {
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             if (this.responseText === "FALSE") {
-                console.log("No hay sesion");
+                console.log("No session active");
             } else {
-                console.log(this.responseText);
                 cargarPaginaPrincipal(this.responseText);
             }
         }
@@ -162,8 +161,6 @@ function cargarChats(user) {
             if (this.responseText === "FALSE") {
                 alert("Something went wrong");
             } else {
-                //alert('va bien');
-                console.log(typeof (this.responseText));
                 deleteChats();
                 createChats(JSON.parse(this.responseText));
                 cargarGrupos();
@@ -195,14 +192,12 @@ function createChats(chats) {
 }
 
 function cargarGrupos() {
-    console.log(currentUser);
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             if (this.responseText === "FALSE") {
-                console.log('NO HAY GRUPOS O FALLA')
+                console.log('THERE IS NOT ANY GROUP WIHT THE USER')
             } else {
-                console.log(JSON.parse(this.responseText));
                 createGroups(JSON.parse(this.responseText));
             }
         }
@@ -261,7 +256,7 @@ function onClick() {
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             if (this.responseText === "FALSE") {
-                console.log("No funciona");
+                console.log("Somrthing went wrong");
             } else {
                 newChat = 0;
                 newChatUser = 0;
@@ -290,11 +285,10 @@ function onClick2() {
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             if (this.responseText === "FALSE") {
-                console.log("No funciona");
+                console.log("Something went wrong");
             } else {
                 newChat = 0;
                 newChatUser = 0;
-                console.log(JSON.parse(this.responseText));
                 cargarConversacion(JSON.parse(this.responseText));
                 intervalConversation = setInterval(updateConverGroup, 1500);
             }
@@ -577,10 +571,8 @@ function mostrarPerfilPersonal(user) {
     var updateBttn = document.createElement('button');
     updateBttn.addEventListener('click', updateInfo);
     updateBttn.innerHTML = 'Update';
-    //imagen
     var form = document.createElement('form');
     form.action = 'update_profile.php';
-    //form.addEventListener('submit' , cargarPaginaPrincipal(currentUser));
     form.id = 'formImg';
     form.method = 'post';
     form.enctype = 'multipart/form-data';
@@ -620,10 +612,6 @@ function updateInfo() {
         if (this.readyState == 4 && this.status == 200) {
             if (this.responseText === "FALSE") {
                 alert('something went wrong')
-                //mostrarPerfilPersonal(currentUser);
-            } else {
-                //mostrarPerfilPersonal(JSON.parse(this.responseText));
-                //alert('Invalid Username.');
             }
         }
     }
@@ -646,7 +634,6 @@ function difusionList() {
         arrayUsers.push(window.prompt('Destination user name'));
     }
     var msg = window.prompt('What do you want to tell?');
-    console.log(arrayUsers);
     for (var i = 0; i < arrayUsers.length; i++) {
         sendDifList(arrayUsers[i], msg);
     }
@@ -659,7 +646,6 @@ function sendDifList(username, msg) {
             if (this.responseText === "FALSE") {
                 alert("Message to " + username + "won't be send beacuse the user doesn't exists");
             } else {
-                console.log('Por aqui');
                 for (var i = 0; i < intervalReadArray.length; i++)
                     clearInterval(intervalReadArray[i]);
                 intervalReadArray = [];
